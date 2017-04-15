@@ -45,6 +45,8 @@ public class GeneticAlgorithm {
 		
     }
 	
+	
+	
 	public int[] doCrossOver(int[] solution1, int[] solution2){
 		int domainLen = domain.length -2;
 		int randomNr = generateRandomNumber(1, domainLen);
@@ -86,11 +88,30 @@ public class GeneticAlgorithm {
 			}
 		}
 	}
-    public void geneticOptimze(){
-
+    public void geneticOptimze(int maxIteration , int populationSize, double elite){
+    	int[] population = new int[numberOfNurse];
+    	
+    	//initializePopulation();
+    	get50RandomSolutions(50);
+    	int topElite = (int) (elite*populationSize);
+    	
+    	for(int i=0; i<maxIteration; i++){
+    		//remove empty items from population
+    		//costf()
+    	}
     }
 
-    
+    public void get50RandomSolutions(int popSize){
+    	
+    	int[][] population = new int[numberOfNurse][];
+    	for(int i =0; i<popSize; i++){
+    		int[] vector = new int[numberOfNurse];
+    		for(int j=0; j<numberOfNurse; j++){
+    			vector[j] = generateRandomNumber(domain[j][0], domain[j][1]);
+    		}
+    		population[i][0] = vector[i];    		
+    	}
+    }
 
     public void mutate(){
 
