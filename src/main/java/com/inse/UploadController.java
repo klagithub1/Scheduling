@@ -17,7 +17,7 @@ public class UploadController {
   //  private static final String FILE_NAME = "/E:/Book1.xls";
     public static void main(String[] args) throws ParseException {
 
-        String csvFile = "/E:/Data.csv";
+        String csvFile = "/Users/klajdi/IdeaProjects/Scheduling/resources/data-fp.csv";
         CSVReader reader = null;
         try {
             reader = new CSVReader(new FileReader(csvFile));            
