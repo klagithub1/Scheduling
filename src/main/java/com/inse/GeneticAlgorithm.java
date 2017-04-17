@@ -10,6 +10,10 @@ import java.util.Random;
 import java.util.Set;
 
 public class GeneticAlgorithm {
+
+	// Maintain a list of covered visits 
+	List<String> listWithDuplicates = new ArrayList<String>();
+
 	int numberOfNurse = 6;
 	int[][] domain = new int[numberOfNurse][2];
 	private static Map<Integer,ArrayList<Bundle>> bundlesForNurse = new HashMap<Integer, ArrayList<Bundle>>();
@@ -24,7 +28,8 @@ public class GeneticAlgorithm {
 			}			
 		}
 	}
-		
+
+	// Calculate the cost of a bundle
 	public double costf(int[] solution){
 		double cost = 0;
 		String visits = "";
@@ -143,8 +148,4 @@ public class GeneticAlgorithm {
 	public  void setBundlesForNurse(Map<Integer, ArrayList<Bundle>> bundlesForNurse) {
 		GeneticAlgorithm.bundlesForNurse = bundlesForNurse;
 	}
-
-    
-    
-
 }

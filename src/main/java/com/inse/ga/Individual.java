@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class Individual
 {
-    public static final int SIZE = 500;
+    public static final int SIZE = 15;
     private int[] genes = new int[SIZE];
     private int fitnessValue;
 
