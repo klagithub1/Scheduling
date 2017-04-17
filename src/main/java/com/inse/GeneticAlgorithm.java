@@ -2,6 +2,8 @@ package main.java.com.inse;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -43,8 +45,8 @@ public class GeneticAlgorithm {
 	public double costf(int[] solution){
 		double cost = 0;
 		String visits = "";
-		for(int i=0; i < solution.length; i++){
-			int bundleIndex = solution[i];
+		for(int i=0; i < solution.size(); i++){
+			int bundleIndex = solution.get(i);
 			cost +=bundlesForNurse.get(i+1).get(bundleIndex).getCostOfVisit();
 			visits += bundlesForNurse.get(i+1).get(bundleIndex).getVisitSequence();
 		}
@@ -103,33 +105,78 @@ public class GeneticAlgorithm {
 			}
 		}
 	}
+	
+	//incomplete - in progress
     public void geneticOptimze(int maxIteration , int populationSize, double elite){
     	int[] population = new int[numberOfNurse];
     	
     	//initializePopulation();
-    	get50RandomSolutions(50);
+    	ArrayList<ArrayList<Integer>> populationList = get50RandomSolutions(50);
     	int topElite = (int) (elite*populationSize);
     	
     	for(int i=0; i<maxIteration; i++){
     		//remove empty items from population
     		//costf()
+    		Map<Double, ArrayList<Integer>> scores = new HashMap<Double,ArrayList<Integer>>();
+    		for(ArrayList<Integer> v : populationList){
+    			double costOfSolution = costf(v);
+    			scores.put(costOfSolution, v);
+    		}
+    		
+    		List<Double> costList = new ArrayList<Double>(scores.keySet());
+    		Collections.sort(costList);
+    		ArrayList<ArrayList<Integer>> rankedSolutions = new ArrayList<ArrayList<Integer>>();
+    		for(Double cost: costList){
+    			ArrayList<Integer> solution = scores.get(cost);
+    			rankedSolutions.add(solution);
+    		}
+    		
+    		rankedSolutions.subList(0, topElite);
     	}
     }
 
-    public void get50RandomSolutions(int popSize){
-    	
+    public ArrayList<ArrayList<Integer>> get50RandomSolutions(int popSize){
+    	ArrayList<ArrayList<Integer>> populationList = new ArrayList<ArrayList<Integer>>();
     	int[][] population = new int[numberOfNurse][];
     	for(int i =0; i<popSize; i++){
-    		int[] vector = new int[numberOfNurse];
+    		
+    		ArrayList<Integer> vectorList = new ArrayList<Integer>();
     		for(int j=0; j<numberOfNurse; j++){
-    			vector[j] = generateRandomNumber(domain[j][0], domain[j][1]);
+    			int vectorElement = generateRandomNumber(domain[j][0], domain[j][1]);
+    			vectorList.add(j,vectorElement); 
     		}
-    		population[i][0] = vector[i];    		
+    		
+    		populationList.add(vectorList);		
     	}
+    	System.out.println("50 random population :"+populationList);
+    	return populationList;
     }
 
-    public void mutate(){
-
+    public int[] mutate(int[] vector){
+    	int randomNr = generateRandomNumber(0, domain.length);
+    	int[] mutatedVector = new int[numberOfNurse];
+    	int step = 1;
+    	if(randomNr < 0.5 && vector[randomNr] > domain[randomNr][0]){
+    		for(int i=0; i< randomNr; i++){
+    			if(i != randomNr){
+    				mutatedVector[i] = vector[i];	
+    			}else{
+    				mutatedVector[randomNr] = vector[randomNr] - step;	
+    			}
+    			
+    		}
+    	}else if(vector[randomNr] < domain[randomNr][1]){
+    		for(int i=0; i< randomNr; i++){
+    			if(i != randomNr){
+    				mutatedVector[i] = vector[i];	
+    			}else{
+    				mutatedVector[randomNr] = vector[randomNr] + step;	
+    			}
+    			
+    		}
+    	}
+    	
+    	return mutatedVector;
     }
     // Domain : 0 to noOfSchedules-1 for each nurse
     public void initializeDomain(int n){
