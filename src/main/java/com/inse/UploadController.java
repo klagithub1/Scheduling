@@ -61,7 +61,7 @@ public class UploadController {
 			System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 			System.out.println("Nurse :"+nurse);
 			for(Bundle b : bundlesForNurse.get(nurse)){
-				System.out.println(b.getVisits() + " -- "+ b.getCostOfVisit());
+				System.out.println(b.getVisitSequence() + " -- "+ b.getCostOfVisit());
 			}
 		}
 	}

@@ -1,19 +1,18 @@
 package main.java.com.inse;
 
 public class Bundle {
-	private String visits;
+	private String visitSequence;
 	private double costOfVisit;
 	
-	public Bundle(String nurseVisit, double nurseCost) {
-		
-		this.visits = nurseVisit;
+	public Bundle(String nurseVisit, double nurseCost){
+		this.visitSequence = nurseVisit;
 		this.costOfVisit = nurseCost;
 	}
-	public String getVisits() {
-		return visits;
+	public String getVisitSequence() {
+		return visitSequence;
 	}
-	public void setVisits(String visits) {
-		this.visits = visits;
+	public void setVisitSequence(String visitSequence) {
+		this.visitSequence = visitSequence;
 	}
 	public double getCostOfVisit() {
 		return costOfVisit;
@@ -21,5 +20,4 @@ public class Bundle {
 	public void setCostOfVisit(double costOfVisit) {
 		this.costOfVisit = costOfVisit;
 	}
-
 }

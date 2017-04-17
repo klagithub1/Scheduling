@@ -11,8 +11,18 @@ import java.util.Set;
 
 public class GeneticAlgorithm {
 
-	// Maintain a list of covered visits 
+	//List with duplicates, ot maintain covered visits in order to prevent their reuse.
 	List<String> listWithDuplicates = new ArrayList<String>();
+
+	//Penalty coefficient for allowing duplicates
+	private static double PENALTY_FACTOR = 1000.00;
+
+	//Solution domain
+
+
+	public GeneticAlgorithm(){
+
+	}
 
 	int numberOfNurse = 6;
 	int[][] domain = new int[numberOfNurse][2];
@@ -36,14 +46,14 @@ public class GeneticAlgorithm {
 		for(int i=0; i < solution.length; i++){
 			int bundleIndex = solution[i];
 			cost +=bundlesForNurse.get(i+1).get(bundleIndex).getCostOfVisit();
-			visits += bundlesForNurse.get(i+1).get(bundleIndex).getVisits();
+			visits += bundlesForNurse.get(i+1).get(bundleIndex).getVisitSequence();
 		}
 		
 		String[] listWithDup = visits.split(",");
 		Set<String> listWithOutDup = new HashSet<String>(Arrays.asList(listWithDup));
 		int numOfDup = listWithDup.length - listWithOutDup.size();
 		if(numOfDup > 0){
-			cost += 1000 * numOfDup;
+			cost += GeneticAlgorithm.PENALTY_FACTOR * numOfDup;
 		}
 		System.out.println("Cost of a solution :"+cost);
 		return Math.round(cost);
