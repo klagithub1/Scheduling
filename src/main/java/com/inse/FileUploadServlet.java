@@ -1,4 +1,4 @@
-package com.journaldev.servlet;
+package main.java.com.inse;
 
 import java.io.File;
 import java.io.IOException;
