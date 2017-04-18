@@ -1,5 +1,6 @@
 package com.inse.controller;
 
+import com.inse.service.NurseVisitProcessor;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +13,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.ParseException;
 import java.util.StringJoiner;
 
 @Controller
@@ -39,10 +41,13 @@ public class UploadController {
             byte[] bytes = file.getBytes();
             Path path = Paths.get(UPLOADED_FOLDER + file.getOriginalFilename());
             Files.write(path, bytes);
-
+            NurseVisitProcessor nurseVisitProcessor = new NurseVisitProcessor();
+            nurseVisitProcessor.processNurseVisits();
             redirectAttributes.addFlashAttribute("message", "You successfully uploaded '" + file.getOriginalFilename() + "'");
 
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
             e.printStackTrace();
         }
 
@@ -60,7 +65,6 @@ public class UploadController {
             if (file.isEmpty()) {
                 continue; //next pls
             }
-
             try {
 
                 byte[] bytes = file.getBytes();
