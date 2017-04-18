@@ -1,4 +1,4 @@
-package main.java.com.inse.utility;
+package com.inse.utility;
 
 
 import org.apache.poi.ss.usermodel.*;
