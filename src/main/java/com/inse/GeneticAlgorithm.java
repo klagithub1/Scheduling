@@ -45,8 +45,8 @@ public class GeneticAlgorithm {
 	public double costf(int[] solution){
 		double cost = 0;
 		String visits = "";
-		for(int i=0; i < solution.size(); i++){
-			int bundleIndex = solution.get(i);
+		for(int i=0; i < solution.length; i++){
+			int bundleIndex = solution[i];
 			cost +=bundlesForNurse.get(i+1).get(bundleIndex).getCostOfVisit();
 			visits += bundlesForNurse.get(i+1).get(bundleIndex).getVisitSequence();
 		}
@@ -77,7 +77,6 @@ public class GeneticAlgorithm {
 		
 		return crossOverSol;
 	}
-	
 	
 	
 	public int generateRandomNumber(int min, int max){
@@ -119,7 +118,9 @@ public class GeneticAlgorithm {
     		//costf()
     		Map<Double, ArrayList<Integer>> scores = new HashMap<Double,ArrayList<Integer>>();
     		for(ArrayList<Integer> v : populationList){
-    			double costOfSolution = costf(v);
+    			//double costOfSolution = costf(v);
+				//FIXME change costOfSol to arrayList or handle arrays
+				double costOfSolution = 0;
     			scores.put(costOfSolution, v);
     		}
     		

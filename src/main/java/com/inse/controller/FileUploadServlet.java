@@ -1,7 +1,11 @@
-package main.java.com.inse;
+package main.java.com.inse.controller;
+
+import main.java.com.inse.FileParserService;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Paths;
+import java.text.ParseException;
 import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
@@ -19,6 +23,16 @@ import javax.servlet.http.Part;
 public class FileUploadServlet extends HttpServlet {
 
     private static final long serialVersionUID = 205242440643911308L;
+    private final String fileName = "Data.csv";
+    private String filePath = "";
+
+    public String getFilePath() {
+        return filePath;
+    }
+
+    public void setFilePath(String filePath){
+        this.filePath = this.filePath;
+    }
 
     /**
      * Directory where uploaded files will be saved, its relative to
@@ -30,25 +44,39 @@ public class FileUploadServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request,
                           HttpServletResponse response) throws ServletException, IOException {
-        // gets absolute path of the web application
-        //String applicationPath = request.getServletContext().getRealPath("");
-        String applicationPath = "E:";
-        System.out.println("application path >>>> "+applicationPath);
-        // constructs path of the directory to save uploaded file
-        String uploadFilePath = applicationPath + File.separator + UPLOAD_DIR;
+        if(request.getParameter("saveFile")!=null){
+            saveFile(request, response);
+        }else if(request.getParameter("scheduleNurse")!=null){
+            FileParserService parserService = new FileParserService();
+            try {
+                parserService.parseFile(this.getFilePath());
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
 
+    }
+
+    private void saveFile(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         // creates the save directory if it does not exists
-        File fileSaveDir = new File(uploadFilePath);
+        File fileSaveDir = Paths.get("../resources").toAbsolutePath().normalize().toFile();
+        System.out.println("path >>>> "+Paths.get("../resources").toAbsolutePath().normalize());
         if (!fileSaveDir.exists()) {
             fileSaveDir.mkdirs();
         }
-        System.out.println("Upload File Directory >>>>> "+fileSaveDir.getAbsolutePath());
 
         //Get all the parts from request and write it to the file on server
         for (Part part : request.getParts()) {
-            String fileName = getFileName();
-            System.out.println("filename >>>> "+fileName);
-            part.write(uploadFilePath + File.separator + fileName);
+            filePath = fileSaveDir + File.separator + fileName;
+            this.setFilePath(filePath);
+            part.write(filePath);
+        }
+        FileParserService parserService = new FileParserService();
+        try {
+            System.out.println(" csv in upload file >>>"+this.getFilePath());
+            parserService.parseFile(filePath);
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
 
         request.setAttribute("message", "File uploaded successfully!");
@@ -56,12 +84,10 @@ public class FileUploadServlet extends HttpServlet {
                 request, response);
     }
 
+
     /**
      * Utility method to get file name from HTTP header content-disposition
      */
-    private String getFileName(){
-        return "Data.csv";
-    }
     private String getFileName(Part part) {
         String contentDisp = part.getHeader("content-disposition");
         System.out.println("content-disposition header= "+contentDisp);
