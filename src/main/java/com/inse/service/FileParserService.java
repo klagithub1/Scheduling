@@ -15,9 +15,7 @@ import java.util.Map;
 public class FileParserService {
 	
 	private static Map<Integer,ArrayList<Bundle>> bundlesForNurse = new HashMap<Integer, ArrayList<Bundle>>();
-
   //  private static final String FILE_NAME = "/E:/Book1.xls";
-
 
     public void parseFile(String csvFile) throws ParseException {
 		/*
@@ -61,6 +59,7 @@ public class FileParserService {
 	}
 
 	private  void printBundlesPerNurse() {
+
 		for(int nurse : bundlesForNurse.keySet()){
 			System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 			System.out.println("Nurse :"+nurse);

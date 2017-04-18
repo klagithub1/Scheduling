@@ -11,10 +11,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.NumberFormat;
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
 
 public class ExcelParser {
 
@@ -118,5 +115,18 @@ public class ExcelParser {
                 System.out.println(b.getVisitSequence() + " -- "+ b.getCostOfVisit());
             }
         }
+    }
+
+    public List<String> getBundlesPerNurseAsList() {
+        List<String> bundlesPerNurse = new ArrayList<>();
+        for(int nurse : bundlesForNurse.keySet()){
+            System.out.println("Nurse :"+nurse);
+            for(Bundle b : bundlesForNurse.get(nurse)){
+                String bundleData = "Nurse N"+nurse + ":  " + b.getVisitSequence() + " -- "+ b.getCostOfVisit();
+                bundlesPerNurse.add(bundleData);
+                System.out.println(b.getVisitSequence() + " -- "+ b.getCostOfVisit());
+            }
+        }
+        return bundlesPerNurse;
     }
 }

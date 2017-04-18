@@ -1,12 +1,12 @@
 package com.inse.controller;
 
+import com.inse.model.Bundle;
 import com.inse.service.NurseVisitProcessor;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
@@ -14,12 +14,15 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.StringJoiner;
 
 @Controller
 public class UploadController {
 
     private static String UPLOADED_FOLDER = "E://INSE//";
+    private NurseVisitProcessor nurseVisitProcessor = new NurseVisitProcessor();
 
     @GetMapping("/")
     public String index() {
@@ -41,7 +44,7 @@ public class UploadController {
             byte[] bytes = file.getBytes();
             Path path = Paths.get(UPLOADED_FOLDER + file.getOriginalFilename());
             Files.write(path, bytes);
-            NurseVisitProcessor nurseVisitProcessor = new NurseVisitProcessor();
+
             nurseVisitProcessor.processNurseVisits();
             redirectAttributes.addFlashAttribute("message", "You successfully uploaded '" + file.getOriginalFilename() + "'");
 
@@ -51,49 +54,36 @@ public class UploadController {
             e.printStackTrace();
         }
 
-        return "redirect:/uploadStatus";
+        return "redirect:/list";
     }
 
-    @PostMapping("/uploadMulti")
-    public String multiFileUpload(@RequestParam("files") MultipartFile[] files,
-                                  RedirectAttributes redirectAttributes) {
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    public ModelAndView getList(){
+        List<String> list  = getListItems();
+        ModelAndView model = new ModelAndView("listBundles");
+        model.addObject("lists", list );
 
-        StringJoiner sj = new StringJoiner(" , ");
-
-        for (MultipartFile file : files) {
-
-            if (file.isEmpty()) {
-                continue; //next pls
-            }
-            try {
-
-                byte[] bytes = file.getBytes();
-                Path path = Paths.get(UPLOADED_FOLDER + file.getOriginalFilename());
-                Files.write(path, bytes);
-
-                sj.add(file.getOriginalFilename());
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-        }
-
-        String uploadedFileName = sj.toString();
-        if (StringUtils.isEmpty(uploadedFileName)) {
-            redirectAttributes.addFlashAttribute("message", "Please select a file to upload");
-        } else {
-            redirectAttributes.addFlashAttribute("message", "You successfully uploaded '" + uploadedFileName + "'");
-        }
-
-        return "redirect:/uploadStatus";
-
+        return model;
     }
 
+    private List<String> getListItems(){
+        List<String> list  = nurseVisitProcessor.getBundlesPerNurse();
+        return list;
+    }
 
     @GetMapping("/uploadStatus")
-    public String uploadStatus() {
-        return "uploadStatus";
+    public ModelAndView uploadStatus(@ModelAttribute Bundle bundle) {
+        List<Bundle> bundles = new ArrayList<Bundle>();
+        Bundle b1 = new Bundle("1,2", 100.0);
+        bundle.setCostOfVisit(100.00);
+        bundle.setVisitSequence("1,2,3");
+        //bundle = b1;
+        bundles.add(bundle);
+        ModelAndView bundleModel = new ModelAndView("listBundles");
+        bundleModel.addObject("Bundle",bundles);
+        return bundleModel;
+       // return new ModelAndView("listBundles", "bundles", bundles);
+        //return "uploadStatus";
     }
 
     @GetMapping("/uploadMultiPage")
