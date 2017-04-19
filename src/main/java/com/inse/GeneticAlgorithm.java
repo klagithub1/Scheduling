@@ -1,69 +1,107 @@
 package main.java.com.inse;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class GeneticAlgorithm {
 
-	//List with duplicates, ot maintain covered visits in order to prevent their reuse.
-	List<String> listWithDuplicates = new ArrayList<String>();
+	// Penalty coefficient for allowing duplicates
+	private final static double PENALTY_FACTOR = 10000.00;
 
-	//Penalty coefficient for allowing duplicates
-	private static double PENALTY_FACTOR = 1000.00;
+	// Size of Population
+	private final static int POPULATION_SIZE = 50 ;
 
-	//Solution domain
+	// Max number of iterations
+	private final static int MAXIMUM_NUMBER_ITERATIONS = 100;
+
+	// Mutation probability rate
+	private final static double MUTATION_RATE = 0.2;
+
+	// Mutation Step
+	private final static int MUTATION_STEP = 1;
+
+	// Crossover probability rate
+	private final static double CROSSOVER_RATE = 0.2;
+
+	// Elitism sample
+	private final static double ELITISM = 0.2;
+
+	// Steps
+	private final static int STEP = 1;
+
+	// Represents domain of population, meaning where we take the samples for the population, used for indexing
+	private int[][] domain;
+
+	// Represent nurses' bundles data structure, where each position in the list represent a nurse, e.g. position 0 represent nurse 1
+	private Map<Integer, ArrayList<Bundle>> nurseBundles = new HashMap<Integer, ArrayList<Bundle>>();
+
+	// Represents solution suggested, in form of an array index to the nurseBundles data structure.
+	// e.g. [1 ,9 , 0] represents the first nurse's second feasible bundle,
+	// the second nurse's tenth feasible bundle and the third nurse's first feasible bundle.
+	// In the end is set to represent the most optimal (fittest candidate) sample.
+	private int[] solution;
+
+	// List with duplicates, ot maintain covered visits in order to prevent their reuse.
+	private Set<String> listWithDuplicates = new TreeSet<String>();
+
+	// Number of nurses
+	private int numberOfNurses;
+
+	// REFACTOR ----------------------------
+	//int numberOfNurse = 6;
+	//int[][] domain = new int[numberOfNurse][2];
+	//private static Map<Integer,ArrayList<Bundle>> bundlesForNurse = new HashMap<Integer, ArrayList<Bundle>>();
+	//Bundle[][] bundleArray = new Bundle[numberOfNurse][];
+	//int[] solution = new int[numberOfNurse];
+	// -------------------------------------
 
 
-	public GeneticAlgorithm(){
-
+	public GeneticAlgorithm(int numberOfNurses, Map<Integer, ArrayList<Bundle>> nurseBundles){
+		this.numberOfNurses = numberOfNurses;
+		this.nurseBundles = nurseBundles;
 	}
 
-	int numberOfNurse = 6;
-	int[][] domain = new int[numberOfNurse][2];
-	private static Map<Integer,ArrayList<Bundle>> bundlesForNurse = new HashMap<Integer, ArrayList<Bundle>>();
-	Bundle[][] bundleArray = new Bundle[numberOfNurse][];	
-	int[] solution = new int[numberOfNurse];
-	
-	public void assignMapToArray(Map<Integer, ArrayList<Bundle>> bundleNurseMap){
+	/*public void assignMapToArray(Map<Integer, ArrayList<Bundle>> bundleNurseMap){
 		for(int nurseNo : bundleNurseMap.keySet()){
 			ArrayList<Bundle> bundleList = bundleNurseMap.get(nurseNo);
 			for(int i = 0 ; i < bundleList.size(); i++){
 				bundleArray[nurseNo-1][i] = bundleList.get(i);	
 			}			
 		}
-	}
+	}*/
 
-	// Calculate the cost of a bundle
-	public double costf(int[] solution){
+	// Calculate the cost of a propsed solution
+	public double costf(int[] solution) {
 		double cost = 0;
-		String visits = "";
-		for(int i=0; i < solution.size(); i++){
-			int bundleIndex = solution.get(i);
-			cost +=bundlesForNurse.get(i+1).get(bundleIndex).getCostOfVisit();
-			visits += bundlesForNurse.get(i+1).get(bundleIndex).getVisitSequence();
+
+		for(int i=0; i < solution.length; i++){
+
+			// Calculate cost of a solution
+			cost += nurseBundles.get(Integer.valueOf(i)).get(solution[i]).getCostOfVisitBundle();
+
+			// Split the visits by ,
+			String[] visit = nurseBundles.get(Integer.valueOf(i)).get(solution[i]).getVisitSequence().split(",");
+
+			// Add the visits to a list to avoid duplications
+			for(int j=0; j < visit.length; j++){
+
+				// If the visit is already in the collection of covered visits, penalize the bundle cost, else add it.
+				if(listWithDuplicates.contains(visit[j].trim())){
+					cost += GeneticAlgorithm.PENALTY_FACTOR;
+				}
+				else {
+					listWithDuplicates.add(visit[j].trim());
+				}
+			}
 		}
-		
-		String[] listWithDup = visits.split(",");
-		Set<String> listWithOutDup = new HashSet<String>(Arrays.asList(listWithDup));
-		int numOfDup = listWithDup.length - listWithOutDup.size();
-		if(numOfDup > 0){
-			cost += GeneticAlgorithm.PENALTY_FACTOR * numOfDup;
-		}
-		System.out.println("Cost of a solution :"+cost);
-		return Math.round(cost);
-		
+
+		// Print trace
+		System.out.println("Info: Cost of the solution is: "+cost);
+
+		// Round to 2 decimal places if needed
+		return cost;
     }
-	
-	
-	
+
 	public int[] doCrossOver(int[] solution1, int[] solution2){
 		int domainLen = domain.length -2;
 		int randomNr = generateRandomNumber(1, domainLen);
@@ -77,10 +115,8 @@ public class GeneticAlgorithm {
 		
 		return crossOverSol;
 	}
-	
-	
-	
-	public int generateRandomNumber(int min, int max){
+
+	private int generateRandomNumber(int min, int max){
 		Random random = new Random();
 		int randomNumber = random.nextInt(max - min + 1) + min;
 		return randomNumber;
@@ -105,8 +141,7 @@ public class GeneticAlgorithm {
 			}
 		}
 	}
-	
-	//incomplete - in progress
+
     public void geneticOptimze(int maxIteration , int populationSize, double elite){
     	int[] population = new int[numberOfNurse];
     	
@@ -152,8 +187,15 @@ public class GeneticAlgorithm {
     	return populationList;
     }
 
-    public int[] mutate(int[] vector){
-    	int randomNr = generateRandomNumber(0, domain.length);
+    private int[] mutate(int[] vector) {
+
+    	// Generate a random integer, not including the upper bound
+    	int randomNr = ThreadLocalRandom.current().nextInt(0, this.domain.length);
+
+    	// Generate a random decimal, and perform the mutation
+
+
+
     	int[] mutatedVector = new int[numberOfNurse];
     	int step = 1;
     	if(randomNr < 0.5 && vector[randomNr] > domain[randomNr][0]){
@@ -178,6 +220,7 @@ public class GeneticAlgorithm {
     	
     	return mutatedVector;
     }
+
     // Domain : 0 to noOfSchedules-1 for each nurse
     public void initializeDomain(int n){
          //   Map<String, List<Schedule>> nurseScheduleList = new HashMap<String, List<Schedule>>();
@@ -204,5 +247,29 @@ public class GeneticAlgorithm {
 
 	public  void setBundlesForNurse(Map<Integer, ArrayList<Bundle>> bundlesForNurse) {
 		GeneticAlgorithm.bundlesForNurse = bundlesForNurse;
+	}
+
+	public int[][] getDomain() {
+		return this.domain;
+	}
+
+	public void setDomain(int[][] domain) {
+    	this.domain = domain;
+	}
+
+	public int[] getSolution() {
+    	return this.solution;
+	}
+
+	public void setSolution(int[] solution) {
+		this.solution = solution;
+	}
+
+	public Map<Integer, ArrayList<Bundle>> getNurseBundles() {
+		return nurseBundles;
+	}
+
+	public void setNurseBundles(HashMap<Integer, ArrayList<Bundle>> bundles){
+    	this.nurseBundles = bundles;
 	}
 }
