@@ -1,24 +1,46 @@
 package com.inse.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Schedule {
-    public List<Integer> getVisits() {
-        return visits;
+
+    double scheduleCost;
+    int[] solutionVector;
+
+    public Schedule(double scheduleCost, int[] solutionVector){
+
+        this.scheduleCost = scheduleCost;
+        this.solutionVector = solutionVector;
     }
 
-    public void setVisits(List<Integer> visits) {
-        this.visits = visits;
+    public double getScheduleCost() {
+        return scheduleCost;
     }
 
-    public double getCostOfVisit() {
-        return costOfVisit;
+    public void setScheduleCost(double schedCost) {
+        this.scheduleCost = schedCost;
     }
 
-    public void setCostOfVisit(double costOfVisit) {
-        this.costOfVisit = costOfVisit;
+    public int[] getSolutionVector(){
+        return this.solutionVector;
     }
 
-    List<Integer> visits;
-    double costOfVisit;
+    public void setSolutionVector(int[] solution){
+        this.solutionVector = solution;
+    }
+
+    public String toString(){
+
+        // Print Vector
+        String printedVector="";
+        printedVector += "[";
+        for(int j=0; j < this.solutionVector.length; j++){
+            printedVector += this.solutionVector[j]+",";
+        }
+        printedVector = printedVector.substring(0, printedVector.length() - 1);
+        printedVector += "]";
+
+        return "{ [ Schedule Cost: "+this.scheduleCost+" ] [ Solution Vector: "+printedVector+" ] }";
+    }
 }
