@@ -9,7 +9,7 @@ public class GeneticAlgorithm {
 	private final static int NURSE_START_BUNDLE = 0;
 
 	// Penalty coefficient for allowing duplicates
-	private final static double PENALTY_FACTOR = 10000.00;
+	private final static double PENALTY_FACTOR = 100.00;
 
 	// Size of Population
 	private final static int POPULATION_SIZE = 50 ;
@@ -48,18 +48,19 @@ public class GeneticAlgorithm {
 	// In the end is set to represent the most optimal (fittest candidate) sample.
 	private int[] solution;
 
-	// List with duplicates, ot maintain covered visits in order to prevent their reuse.
-	private Set<String> listWithDuplicates = new TreeSet<String>();
-
+	// Constructor
 	public GeneticAlgorithm(Map<Integer, ArrayList<Bundle>> nurseBundles){
 		this.nurseBundles = nurseBundles;
 		this.initDomain();
-
 	}
 
 	// Calculate the cost of a proposed solution
 	private double costf(int[] solution) {
+		System.out.println("-----------------------");
+		System.out.println(printVector(solution));
 		double cost = 0;
+
+		Set<String> listWithDuplicates = new TreeSet<String>();
 
 		for(int i=0; i < solution.length; i++){
 
@@ -69,23 +70,26 @@ public class GeneticAlgorithm {
 			// Split the visits by ,
 			String[] visit = nurseBundles.get(Integer.valueOf(i)).get(solution[i]).getVisitSequence().split(",");
 
+			System.out.println(nurseBundles.get(Integer.valueOf(i)).get(solution[i]).getVisitSequence());
+
 			// Add the visits to a list to avoid duplications
 			for(int j=0; j < visit.length; j++){
 
 				// If the visit is already in the collection of covered visits, penalize the bundle cost, else add it.
 				if(listWithDuplicates.contains(visit[j].trim())){
 					cost += GeneticAlgorithm.PENALTY_FACTOR;
+					System.out.println("!Penalized! The cost now is: "+cost);
 				}
 				else {
 					listWithDuplicates.add(visit[j].trim());
 				}
 			}
+			System.out.println(listWithDuplicates);
 		}
 
 		// Print trace
 		System.out.println("Info: Cost of the solution is: "+cost);
 
-		// Round to 2 decimal places if needed
 		return cost;
     }
 
@@ -114,8 +118,7 @@ public class GeneticAlgorithm {
 
 		System.out.println(printPopulation((ArrayList<int[]>) population));
 
-
-		// Main loop
+		// Main loop, evolution of populations over number of iterations, each loop end produces a new generation of population
 		for(int k=0; k < GeneticAlgorithm.MAXIMUM_NUMBER_ITERATIONS; k++){
 
 			// Exit the loop if there is no population
@@ -126,9 +129,10 @@ public class GeneticAlgorithm {
 			// Filter the empty population vectors
 			// TODO
 
-			// Sorted by Price population
+			// Sort population by price ASC, cheapest price on top
 			TreeMap<Double, int[]> rankedPopulation = new TreeMap<Double, int[]>();
 
+			// Go through the population and add them to the tree
 			for (int c=0; c < population.size(); c++){
 				rankedPopulation.put(Double.valueOf(this.costf(population.get(c))), population.get(c));
 			}
@@ -138,7 +142,7 @@ public class GeneticAlgorithm {
 
 			for(int l=0; l < topelite; l++){
 				//TODO fix this
-				newPopulation.add(rankedPopulation.get(l));
+				//newPopulation.add(rankedPopulation.get(l));
 			}
 
 			//Starting with these top elite, mutate and crossover between them, until we fill the new population
@@ -148,11 +152,11 @@ public class GeneticAlgorithm {
 				if(Math.random() < MUTATION_RATE) {
 
 					//Pick a random integer between 0 and top elite and add the mutated vector
-					newPopulation.add(mutate(rankedPopulation.get(((int) (Math.random() * topelite)))));
+					//newPopulation.add(mutate(rankedPopulation.get(((int) (Math.random() * topelite)))));
 				} else {
 					//TODO refactoring, the crossover can be an if statement of its own, it doesnt have to happen all the time
 
-					newPopulation.add(crossover(rankedPopulation.get(((int) (Math.random() * topelite))), rankedPopulation.get(((int) (Math.random() * topelite)))));
+					//newPopulation.add(crossover(rankedPopulation.get(((int) (Math.random() * topelite))), rankedPopulation.get(((int) (Math.random() * topelite)))));
 				}
 
 			}
@@ -202,14 +206,6 @@ public class GeneticAlgorithm {
 		return crossOver;
 	}
 
-	// Randomly generate an individual from the domain.
-	private int[] generateRandomVector(){
-    	int[] randomVector = new int[domain.length];
-
-
-    	return randomVector;
-	}
-
 	private void initDomain(){
 
 		if(this.nurseBundles.keySet().size() > 0) {
@@ -227,10 +223,6 @@ public class GeneticAlgorithm {
 		}
 
 		System.out.println(printDomain());
-	}
-
-	public void setNurseBundles(Map<Integer, ArrayList<Bundle>> nurseBundles) {
-		this.nurseBundles = nurseBundles;
 	}
 
 	public String printDomain(){
@@ -260,5 +252,17 @@ public class GeneticAlgorithm {
 			printedPopulation += "]"+"\n";
 		}
 		return printedPopulation;
+	}
+
+	public String printVector(int[] vector) {
+
+		String printedVector="";
+		printedVector += "[";
+		for(int j=0; j < vector.length; j++){
+			printedVector += vector[j]+",";
+		}
+		printedVector = printedVector.substring(0, printedVector.length() - 1);
+		printedVector += "]";
+		return printedVector;
 	}
 }
