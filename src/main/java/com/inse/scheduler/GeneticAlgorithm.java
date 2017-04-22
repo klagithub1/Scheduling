@@ -9,7 +9,7 @@ public class GeneticAlgorithm {
 	private final static int NURSE_START_BUNDLE = 0;
 
 	// Penalty coefficient for allowing duplicates
-	private final static double PENALTY_FACTOR = 100.00;
+	private final static double PENALTY_FACTOR = 1000.00;
 
 	// Size of Population
 	private final static int POPULATION_SIZE = 50 ;
@@ -42,22 +42,19 @@ public class GeneticAlgorithm {
 	// Represent nurses' bundles data structure, where each position in the list represent a nurse, e.g. position 0 represent nurse 1
 	private Map<Integer, ArrayList<Bundle>> nurseBundles = new HashMap<Integer, ArrayList<Bundle>>();
 
-	// Represents solution suggested, in form of an array index to the nurseBundles data structure.
-	// e.g. [1 ,9 , 0] represents the first nurse's second feasible bundle,
-	// the second nurse's tenth feasible bundle and the third nurse's first feasible bundle.
-	// In the end is set to represent the most optimal (fittest candidate) sample.
-	private int[] solution;
-
 	// Constructor
 	public GeneticAlgorithm(Map<Integer, ArrayList<Bundle>> nurseBundles){
 		this.nurseBundles = nurseBundles;
-		this.initDomain();
+
+		try {
+			this.initDomain();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	// Calculate the cost of a proposed solution
 	private double costf(int[] solution) {
-		//System.out.println("-----------------------");
-		//System.out.println(printVector(solution));
 		double cost = 0;
 
 		Set<String> listWithDuplicates = new TreeSet<String>();
@@ -95,67 +92,62 @@ public class GeneticAlgorithm {
 
     public void geneticOptimize(){
 
-		// Build an initial population of solutions
-		List<int[]> population = new ArrayList<int[]>();
-
 		// Determine elite winners population sample size
 		// e.g. if Elite is 0.2 (20%) and population size is 10, then the best 2 individuals are the elite
 		int topelite = (int)(ELITISM * POPULATION_SIZE);
 
 		// Initialize a random population
-		for(int i=0; i < GeneticAlgorithm.POPULATION_SIZE; i ++){
-
-			int[] entry = new int[domain.length];
-
-			// Pick up random bundles from random nurses
-			for(int j=0; j < domain.length; j++) {
-				entry[j] = (int)(Math.random() * domain[j][1] + domain[j][0]) ;
-			}
-			population.add(entry);
-		}
-
-		//System.out.println(printPopulation((ArrayList<int[]>) population));
+		ArrayList<int[]> population = initializeRandomPopulation();
 
 		// Main loop, evolution of populations over number of iterations, each loop end produces a new generation of population
 		for(int k=0; k < GeneticAlgorithm.MAXIMUM_NUMBER_ITERATIONS; k++){
+
+			// Declare the new generation (new population) which will be the result of this iteration
+			ArrayList<int[]> newPopulation = new ArrayList<int[]>();
 
 			// Exit the loop if there is no population
 			if(population.isEmpty()) {
 				break;
 			}
 
+//			TreeMap<Double, int[]> rankedPopulationMap = new TreeMap<Double, int[]>();
+//
+//			// Go through the population and add them to the sorted tree, duplications will not be considered
+//			for (int c=0; c < population.size(); c++){
+//				rankedPopulationMap.put(Double.valueOf(this.costf(population.get(c))), population.get(c));
+//			}
+//
+//			// Iterate through the tree map and add the first solutions to the new population, as being part of the elite
+//			int elite_counter = 0;
+//
+//			for(Map.Entry<Double,int[]> entry : rankedPopulationMap.entrySet()) {
+//
+//				// Take the first best solutions as per the elite of population
+//				if(elite_counter < topelite) {
+//					newPopulation.add(entry.getValue());
+//					elite_counter++;
+//				}
+//
+//				rankedPopulationList.add(entry.getValue());
+//			}
+
 			// Sort population by price ASC, cheapest price first
-			TreeMap<Double, int[]> rankedPopulationMap = new TreeMap<Double, int[]>();
+			ArrayList<int[]> sortedByPricePopulation = sortPopulationByPrice((ArrayList<int[]>) population);
 
-			// Go through the population and add them to the sorted tree, duplications will not be considered
-			for (int c=0; c < population.size(); c++){
-				rankedPopulationMap.put(Double.valueOf(this.costf(population.get(c))), population.get(c));
-			}
-
-			// Declare the new generation (new population) which will be the result of this iteration
-			List<int[]> newPopulation = new ArrayList<int[]>();
-
-			// Map the Tree to a temporary list
-			List<int[]> rankedPopulationList = new ArrayList<int[]>();
-
-			// Iterate through the tree map and add the first solutions to the new population, as being part of the elite
-
-			// Elite counter, stop at counter < elite
-			int elite_counter = 0;
-
-			for(Map.Entry<Double,int[]> entry : rankedPopulationMap.entrySet()) {
-
-				// Take the first best solutions as per the elite of population
-				if(elite_counter < topelite) {
-					newPopulation.add(entry.getValue());
-					elite_counter++;
+			// Add the first solutions matching the number of elite population to the new population
+			// e.g. if elite is 10, the first 10 vectors should move on to the next generation
+			System.out.println("population z=sieze: "+sortedByPricePopulation.size());
+			for(int i=0; i < topelite; i++){
+				if(sortedByPricePopulation.size() < 1) {
+					return;
+				} else if(sortedByPricePopulation.size() < topelite) {
+					topelite = sortedByPricePopulation.size();
+					newPopulation.add(sortedByPricePopulation.get(i));
+				} else {
+					newPopulation.add(sortedByPricePopulation.get(i));
 				}
-
-				//System.out.println(entry.getKey() + " => " + printVector(entry.getValue()));
-				rankedPopulationList.add(entry.getValue());
 			}
 
-			//System.out.println(printPopulation((ArrayList<int[]>) rankedPopulationList));
 
 			//Starting with these top elite, mutate and crossover between them, until we fill the new population
 			while(newPopulation.size() < POPULATION_SIZE){
@@ -164,10 +156,10 @@ public class GeneticAlgorithm {
 				if(Math.random() < MUTATION_RATE) {
 
 					//Pick a random integer between 0 and top elite and add the mutated vector
-					newPopulation.add(mutate(rankedPopulationList.get(((int) (Math.random() * topelite)))));
+					newPopulation.add(mutate(sortedByPricePopulation.get(((int) (Math.random() * topelite)))));
 				} else {
 					//TODO refactoring, the crossover can be an if statement of its own, it doesnt have to happen all the time
-					newPopulation.add(crossover(rankedPopulationList.get(((int) (Math.random() * topelite))), rankedPopulationList.get(((int) (Math.random() * topelite)))));
+					newPopulation.add(crossover(sortedByPricePopulation.get(((int) (Math.random() * topelite))), sortedByPricePopulation.get(((int) (Math.random() * topelite)))));
 				}
 			}
 
@@ -213,15 +205,10 @@ public class GeneticAlgorithm {
     }
 
     private int[] crossover(int[] vector1, int[] vector2) {
-		System.out.println("---------------------------");
-		System.out.println("Crossover: ");
-		System.out.println(printVector(vector1));
-		System.out.println(printVector(vector2));
 
 		int[] crossOver = new int[domain.length];
 
 		int rand = (int)(Math.random() * domain.length);
-		System.out.println(rand);
 
 		for(int i =0; i < crossOver.length-1; i ++) {
 			if( i <= rand ) {
@@ -231,8 +218,6 @@ public class GeneticAlgorithm {
 				crossOver[i] = vector2[i];
 			}
 		}
-		System.out.println(printVector(crossOver));
-		System.out.println("---------------------------");
 		return crossOver;
 	}
 
@@ -248,43 +233,56 @@ public class GeneticAlgorithm {
     	return rankedPopulation;
 	}
 
-	// Sorting the population, by schedule price
-	/*private List<Schedule> sortPopulation(List<int[]> population){
-		List<Schedule> unSortedPopulation = new ArrayList<Schedule>();
-		List<Schedule> sortedPopulation = new ArrayList<Schedule>();
+	private ArrayList<int[]> initializeRandomPopulation(){
 
-		double[] vectorCost = new double[population.size()];
+		ArrayList<int[]> randomPopulation = new ArrayList<int[]>();
 
-		// Iterate through all vectors
-		for (int i=0; i < population.size(); i++){
+		for(int i=0; i < GeneticAlgorithm.POPULATION_SIZE; i ++){
 
-			unSortedPopulation.add(new Schedule(costf(population.get(i)), population.get(i)));
-			vectorCost[i] = costf(population.get(i);
+			int[] entry = new int[domain.length];
+
+			// Pick up random bundles from random nurses
+			for(int j=0; j < domain.length; j++) {
+				entry[j] = (int)(Math.random() * domain[j][1] + domain[j][0]) ;
+			}
+			randomPopulation.add(entry);
+		}
+		return randomPopulation;
+	}
+
+	private ArrayList<int[]> sortPopulationByPrice(ArrayList<int[]> population){
+
+		ArrayList<int[]> sortedPopulation = new ArrayList<int[]>();
+
+		// Go through the population and add them to the sorted tree, duplications will not be considered
+		TreeMap<Double, int[]> rankedPopulationMap = new TreeMap<Double, int[]>();
+		
+		for (int c=0; c < population.size(); c++){
+			rankedPopulationMap.put(Double.valueOf(this.costf(population.get(c))), population.get(c));
 		}
 
-		// Iterate through all the unsorted
-		for(){
-
+		for(Map.Entry<Double,int[]> entry : rankedPopulationMap.entrySet()) {
+			
+			sortedPopulation.add(entry.getValue());
 		}
-
 		return sortedPopulation;
-	}*/
+	}
 
 
-	private void initDomain(){
+	private void initDomain() throws Exception{
 
 		if(this.nurseBundles.keySet().size() > 0) {
 			this.domain = new int[this.nurseBundles.keySet().size()][2];
 
 			// Iterate through the nurses and count the bundles
 			for(int i=0; i < this.nurseBundles.keySet().size(); i++ ){
-				//System.out.println("***** "+ i + " "+(this.nurseBundles.get(i).size() - 1));
 				domain[i][0] = NURSE_START_BUNDLE;
 				domain[i][1] = (this.nurseBundles.get(i).size() - 1);
 			}
 		} else {
 			//TODO this should throw some sort of exception as we have no problem to solve if we're here
-			return;
+
+			throw new Exception();
 		}
 
 		System.out.println(printDomain());
