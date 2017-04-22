@@ -14,7 +14,11 @@ import java.util.*;
 
 public class ExcelParser {
 
-    private static final String FILE_NAME = "E://INSE//Data Sample 2-2.xlsx";
+    //private static final String FILE_NAME = "E://INSE//Data Sample 2-2.xlsx";
+    private static final String FILE_NAME = "//Users//klajdi//Desktop//data_sample//Data Sample.xlsx";
+
+
+
     private static Map<Integer,ArrayList<Bundle>> bundlesForNurse = new HashMap<Integer, ArrayList<Bundle>>();
     private static final int BACKUP_NURSE_SHEET = 0;
     private static final int VISITS_COST_SHEET = 1;
@@ -28,7 +32,7 @@ public class ExcelParser {
             Sheet feasibleVisits = workbook.getSheetAt(VISITS_COST_SHEET);
 
             parseBackupNurseSheet(backupNurseSheet);
-            parseFeasibleVistSheet(feasibleVisits);
+            parseFeasibleVisitSheet(feasibleVisits);
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -49,9 +53,9 @@ public class ExcelParser {
 
                 Cell currentCell = cellIterator.next();
                 if (currentCell.getCellTypeEnum() == CellType.STRING) {
-                    System.out.print(currentCell.getStringCellValue() + "--");
+                    //System.out.print(currentCell.getStringCellValue() + "--");
                 } else if (currentCell.getCellTypeEnum() == CellType.NUMERIC) {
-                    System.out.print(currentCell.getNumericCellValue() + "--");
+                    //System.out.print(currentCell.getNumericCellValue() + "--");
                 }
             }
             System.out.println();
@@ -59,41 +63,47 @@ public class ExcelParser {
     }
 
 
-    private void parseFeasibleVistSheet(Sheet feasibleVisits) throws IOException, ParseException {
+    private void parseFeasibleVisitSheet(Sheet feasibleVisits) throws IOException, ParseException {
         Iterator<Row> iterator = feasibleVisits.iterator();
+
         //Skip the first two header rows
         iterator.next(); iterator.next();
 
+        // Iterate through each row
         while (iterator.hasNext()) {
+
             int nurseNo = 0;
             Row currentRow = iterator.next();
             Iterator<Cell> cellIterator = currentRow.iterator();
-            //Skip the Column "Num"
+
+            // Skip the Column "Num"
             cellIterator.next();
 
+            // Go through every cell in the row
             while (cellIterator.hasNext()) {
-                nurseNo++;
+
+                double visitCost = 0;
+                String nurseVisit = "";
+
                 Cell currentCell = cellIterator.next();
                 Cell costCell = cellIterator.next();
-                double visitCost;
-                String nurseVisit = null;
-                visitCost = 0;
+
                 nurseVisit = currentCell.getStringCellValue();
+
                 if(costCell.getCellTypeEnum() == CellType.NUMERIC){
                     visitCost = costCell.getNumericCellValue();
                 }
+                
+                // Filter out, empty bundles and 0 costs.
+                if(!(nurseVisit.equals("") || nurseVisit.isEmpty() || visitCost == 0)){
+                    assignBundlesToNurse( nurseNo, new Bundle(nurseVisit, visitCost));
+                    System.out.println(" INFO: [ nurseNo: "+ nurseNo+" Bundle: \"" + nurseVisit + "\" - " + "Cost: " + visitCost+" ]");
+                }
 
-                System.out.println("nurseNo:"+ nurseNo+" nurseVisit :" + nurseVisit + " - " + "visitCost :" + visitCost);
-                System.out.println();
-                Bundle b = initializeBundle(visitCost, nurseVisit);
-                assignBundlesToNurse( nurseNo, b);
+                // Check next nurse
+                nurseNo++;
             }
         }
-    }
-
-    private Bundle initializeBundle(double nurseCost, String nurseVisit) throws ParseException {
-        Bundle b = new Bundle(nurseVisit, nurseCost);
-        return b;
     }
 
     private void assignBundlesToNurse(int nurseNo, Bundle b) {
@@ -127,5 +137,9 @@ public class ExcelParser {
             }
         }
         return bundlesPerNurse;
+    }
+
+    public static Map<Integer, ArrayList<Bundle>> getBundlesForNurse() {
+        return bundlesForNurse;
     }
 }

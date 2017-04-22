@@ -24,4 +24,8 @@ public class Bundle {
 	public void setCostOfVisitBundle(double costOfVisit) {
 		this.costOfVisitBundle = costOfVisit;
 	}
+
+	public String toString(){
+		return " {\""+visitSequence+"\" , "+costOfVisitBundle+" }";
+	}
 }

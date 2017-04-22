@@ -5,6 +5,9 @@ import com.inse.model.*;
 
 public class GeneticAlgorithm {
 
+	// Start bundle per nurse, decide which bundle we consider part of the domain per each nurse
+	private final static int NURSE_START_BUNDLE = 0;
+
 	// Penalty coefficient for allowing duplicates
 	private final static double PENALTY_FACTOR = 10000.00;
 
@@ -29,10 +32,11 @@ public class GeneticAlgorithm {
 	// Elitism sample
 	private final static double ELITISM = 0.2;
 
-	// Steps
-	private final static int STEP = 1;
-
 	// Represents domain of population, meaning where we take the samples for the population, used for indexing
+	// The first dimension represents nurse index, the second dimension has 2 elements,
+	// first representing start bundle and last bundle of each nurse.
+	// e.g. domain[2][0] -> gives us the index of the first bundle for the third nurse
+	// e.g. domain[2][1] -> gives us the index of the last bundle for the third nurse
 	private int[][] domain;
 
 	// Represent nurses' bundles data structure, where each position in the list represent a nurse, e.g. position 0 represent nurse 1
@@ -47,12 +51,10 @@ public class GeneticAlgorithm {
 	// List with duplicates, ot maintain covered visits in order to prevent their reuse.
 	private Set<String> listWithDuplicates = new TreeSet<String>();
 
-	// Number of nurses
-	private int numberOfNurses;
-
-	public GeneticAlgorithm(int numberOfNurses, Map<Integer, ArrayList<Bundle>> nurseBundles){
-		this.numberOfNurses = numberOfNurses;
+	public GeneticAlgorithm(Map<Integer, ArrayList<Bundle>> nurseBundles){
 		this.nurseBundles = nurseBundles;
+		this.initDomain();
+
 	}
 
 	// Calculate the cost of a proposed solution
@@ -140,6 +142,7 @@ public class GeneticAlgorithm {
 			List<int[]> newPopulation = new ArrayList<int[]>();
 
 			for(int l=0; l < topelite; l++){
+				//TODO fix this
 				newPopulation.add(rankedPopulation.get(l));
 			}
 
@@ -208,6 +211,42 @@ public class GeneticAlgorithm {
     	int[] randomVector = new int[domain.length];
 
     	return randomVector;
+	}
+
+	private void initDomain(){
+
+		if(this.nurseBundles.keySet().size() > 0) {
+			this.domain = new int[this.nurseBundles.keySet().size()][2];
+
+			// Iterate through the nurses and count the bundles
+			for(int i=0; i < this.nurseBundles.keySet().size(); i++ ){
+				System.out.println("***** "+ i + " "+(this.nurseBundles.get(i).size() - 1));
+				domain[i][0] = NURSE_START_BUNDLE;
+				domain[i][1] = (this.nurseBundles.get(i).size() - 1);
+			}
+		} else {
+			//TODO this should throw some sort of exception as we have no problem to solve if we're here
+			return;
+		}
+
+		System.out.println(printDomain());
+	}
+
+	public void setNurseBundles(Map<Integer, ArrayList<Bundle>> nurseBundles) {
+		this.nurseBundles = nurseBundles;
+	}
+
+	public String printDomain(){
+
+		String printedDomain = "{ ";
+		for(int i=0; i < domain.length; i++){
+			for(int j=0; j < domain[i].length; j++){
+				printedDomain += domain[i][j]+" ";
+			}
+		}
+		printedDomain += " }";
+
+		return printedDomain;
 	}
 
 }
