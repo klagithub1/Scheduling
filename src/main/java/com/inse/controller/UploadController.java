@@ -75,7 +75,7 @@ public class UploadController {
     public ModelAndView uploadStatus(@ModelAttribute Bundle bundle) {
         List<Bundle> bundles = new ArrayList<Bundle>();
         Bundle b1 = new Bundle("1,2", 100.0);
-        bundle.setCostOfVisit(100.00);
+        bundle.setCostOfVisitBundle(100.00);
         bundle.setVisitSequence("1,2,3");
         //bundle = b1;
         bundles.add(bundle);

@@ -13,13 +13,17 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class FileParserService {
+
+}
+/*
+public class FileParserService {
 	
 	private static Map<Integer,ArrayList<Bundle>> bundlesForNurse = new HashMap<Integer, ArrayList<Bundle>>();
   //  private static final String FILE_NAME = "/E:/Book1.xls";
 
     public void parseFile(String csvFile) throws ParseException {
-		/*
-		String csvFile = "/Users/klajdi/IdeaProjects/Scheduling/resources/data-fp.csv";*/
+
+		//String csvFile = "/Users/klajdi/IdeaProjects/Scheduling/resources/data-fp.csv";
 		CSVReader reader = null;
 		System.out.println("csvfile >>> "+csvFile);
 		try {
@@ -90,3 +94,4 @@ public class FileParserService {
 
 
 }
+*/
