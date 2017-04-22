@@ -49,15 +49,6 @@ public class GeneticAlgorithm {
 	// Number of nurses
 	private int numberOfNurses;
 
-	// REFACTOR ----------------------------
-	//int numberOfNurse = 6;
-	//int[][] domain = new int[numberOfNurse][2];
-	//private static Map<Integer,ArrayList<Bundle>> bundlesForNurse = new HashMap<Integer, ArrayList<Bundle>>();
-	//Bundle[][] bundleArray = new Bundle[numberOfNurse][];
-	//int[] solution = new int[numberOfNurse];
-	// -------------------------------------
-
-
 	public GeneticAlgorithm(int numberOfNurses, Map<Integer, ArrayList<Bundle>> nurseBundles){
 		this.numberOfNurses = numberOfNurses;
 		this.nurseBundles = nurseBundles;
@@ -97,9 +88,20 @@ public class GeneticAlgorithm {
 
     public void geneticOptimize(){
 
+		/* Build the initial population */
+
 		// Build an initial population
 		List<int[]> population = new ArrayList<int[]>();
 
+		// Randomize population initialization
+		for(int i=0; i < POPULATION_SIZE; i++){
+			population.add(this.generateRandomVector());
+		}
+
+		// Determine elite winners
+		int topelite = (int)(ELITISM * POPULATION_SIZE);
+
+		// Main genetic evolution loop
 		for(int i=0; i < GeneticAlgorithm.POPULATION_SIZE; i ++){
 
 			int[] entry = new int[domain.length];
@@ -118,11 +120,46 @@ public class GeneticAlgorithm {
 		// Main loop
 		for(int k=0; k < GeneticAlgorithm.MAXIMUM_NUMBER_ITERATIONS; k++){
 
+			// Exit the loop if there is no population
 			if(population.isEmpty()) {
-				return;
+				break;
 			}
 
-			
+			// Filter the empty population vectors
+			// TODO
+
+			// Scored ranked population
+			TreeMap<Double, int[]> rankedPopulation = new TreeMap<Double, int[]>();
+
+			for (int c=0; c < population.size(); c++){
+				rankedPopulation.put(Double.valueOf(this.costf(population.get(c))), population.get(c));
+			}
+
+			// Start a new population where we take only the elite winners, e.g. top 10
+			List<int[]> newPopulation = new ArrayList<int[]>();
+
+			for(int l=0; l < topelite; l++){
+				newPopulation.add(rankedPopulation.get(l));
+			}
+
+			//Starting with these top elite, mutate and crossover between them, until we fill the new population
+			while(newPopulation.size() < POPULATION_SIZE){
+
+				// Mutate a random vector from population
+				if(Math.random() < MUTATION_RATE) {
+
+					//Pick a random integer between 0 and top elite and add the mutated vector
+					newPopulation.add(mutate(rankedPopulation.get(((int) (Math.random() * topelite)))));
+				} else {
+					//TODO refactoring, the crossover can be an if statement of its own, it doesnt have to happen all the time
+
+					newPopulation.add(crossover(rankedPopulation.get(((int) (Math.random() * topelite))), rankedPopulation.get(((int) (Math.random() * topelite)))));
+				}
+
+			}
+
+			population.clear();
+			population = newPopulation;
 
 		}
     }
@@ -166,27 +203,10 @@ public class GeneticAlgorithm {
 		return crossOver;
 	}
 
-	public int[][] getDomain() {
-		return this.domain;
+	private int[] generateRandomVector(){
+    	int[] randomVector = new int[domain.length];
+
+    	return randomVector;
 	}
 
-	public void setDomain(int[][] domain) {
-    	this.domain = domain;
-	}
-
-	public int[] getSolution() {
-    	return this.solution;
-	}
-
-	public void setSolution(int[] solution) {
-		this.solution = solution;
-	}
-
-	public Map<Integer, ArrayList<Bundle>> getNurseBundles() {
-		return nurseBundles;
-	}
-
-	public void setNurseBundles(HashMap<Integer, ArrayList<Bundle>> bundles){
-    	this.nurseBundles = bundles;
-	}
 }
