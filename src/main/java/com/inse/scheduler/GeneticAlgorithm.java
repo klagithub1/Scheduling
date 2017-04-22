@@ -96,11 +96,6 @@ public class GeneticAlgorithm {
 		// Build an initial population
 		List<int[]> population = new ArrayList<int[]>();
 
-		// Randomize population initialization
-		for(int i=0; i < POPULATION_SIZE; i++){
-			population.add(this.generateRandomVector());
-		}
-
 		// Determine elite winners
 		int topelite = (int)(ELITISM * POPULATION_SIZE);
 
@@ -117,8 +112,8 @@ public class GeneticAlgorithm {
 			population.add(entry);
 		}
 
-		// Winners from each generation
-		int elite = (int)(GeneticAlgorithm.ELITISM * GeneticAlgorithm.POPULATION_SIZE);
+		System.out.println(printPopulation((ArrayList<int[]>) population));
+
 
 		// Main loop
 		for(int k=0; k < GeneticAlgorithm.MAXIMUM_NUMBER_ITERATIONS; k++){
@@ -131,7 +126,7 @@ public class GeneticAlgorithm {
 			// Filter the empty population vectors
 			// TODO
 
-			// Scored ranked population
+			// Sorted by Price population
 			TreeMap<Double, int[]> rankedPopulation = new TreeMap<Double, int[]>();
 
 			for (int c=0; c < population.size(); c++){
@@ -207,8 +202,10 @@ public class GeneticAlgorithm {
 		return crossOver;
 	}
 
+	// Randomly generate an individual from the domain.
 	private int[] generateRandomVector(){
     	int[] randomVector = new int[domain.length];
+
 
     	return randomVector;
 	}
@@ -240,13 +237,28 @@ public class GeneticAlgorithm {
 
 		String printedDomain = "{ ";
 		for(int i=0; i < domain.length; i++){
+			printedDomain += "( ";
 			for(int j=0; j < domain[i].length; j++){
 				printedDomain += domain[i][j]+" ";
 			}
+			printedDomain += ")";
 		}
 		printedDomain += " }";
 
 		return printedDomain;
 	}
 
+	public String printPopulation(ArrayList<int[]> population){
+
+		String printedPopulation = "";
+		for(int i=0; i < population.size(); i++){
+			printedPopulation += "INFO: random vector "+i+" --> [";
+			for(int j=0; j < population.get(i).length; j++){
+				printedPopulation += population.get(i)[j]+",";
+			}
+			printedPopulation = printedPopulation.substring(0, printedPopulation.length() - 1);
+			printedPopulation += "]"+"\n";
+		}
+		return printedPopulation;
+	}
 }

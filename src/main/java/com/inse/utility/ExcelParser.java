@@ -93,11 +93,11 @@ public class ExcelParser {
                 if(costCell.getCellTypeEnum() == CellType.NUMERIC){
                     visitCost = costCell.getNumericCellValue();
                 }
-                
+
                 // Filter out, empty bundles and 0 costs.
                 if(!(nurseVisit.equals("") || nurseVisit.isEmpty() || visitCost == 0)){
-                    assignBundlesToNurse( nurseNo, new Bundle(nurseVisit, visitCost));
-                    System.out.println(" INFO: [ nurseNo: "+ nurseNo+" Bundle: \"" + nurseVisit + "\" - " + "Cost: " + visitCost+" ]");
+                    assignBundlesToNurse( nurseNo, new Bundle(nurseVisit.trim(), visitCost));
+                    System.out.println(" INFO: [ nurseNo: "+ nurseNo+" Bundle: \"" + nurseVisit.trim() + "\" - " + "Cost: " + visitCost+" ]");
                 }
 
                 // Check next nurse
