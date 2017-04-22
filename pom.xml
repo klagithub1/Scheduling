@@ -39,6 +39,12 @@
             <version>${jstl.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+        </dependency>
+
         <!-- compile only, deployed container will provide this -->
         <dependency>
             <groupId>javax.servlet</groupId>
