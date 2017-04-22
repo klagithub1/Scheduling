@@ -112,7 +112,7 @@ public class ExcelParser {
             System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
             System.out.println("Nurse :"+nurse);
             for(Bundle b : bundlesForNurse.get(nurse)){
-                System.out.println(b.getVisitSequence() + " -- "+ b.getCostOfVisit());
+                System.out.println(b.getVisitSequence() + " -- "+ b.getCostOfVisitBundle());
             }
         }
     }
@@ -122,9 +122,9 @@ public class ExcelParser {
         for(int nurse : bundlesForNurse.keySet()){
             System.out.println("Nurse :"+nurse);
             for(Bundle b : bundlesForNurse.get(nurse)){
-                String bundleData = "Nurse N"+nurse + ":  " + b.getVisitSequence() + " -- "+ b.getCostOfVisit();
+                String bundleData = "Nurse N"+nurse + ":  " + b.getVisitSequence() + " -- "+ b.getCostOfVisitBundle();
                 bundlesPerNurse.add(bundleData);
-                System.out.println(b.getVisitSequence() + " -- "+ b.getCostOfVisit());
+                System.out.println(b.getVisitSequence() + " -- "+ b.getCostOfVisitBundle());
             }
         }
         return bundlesPerNurse;

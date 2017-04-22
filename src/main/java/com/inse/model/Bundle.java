@@ -1,4 +1,4 @@
-package main.java.com.inse;
+package com.inse.model;
 
 public class Bundle {
 	private String visitSequence;

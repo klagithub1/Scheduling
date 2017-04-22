@@ -1,6 +1,7 @@
-package main.java.com.inse;
+package com.inse.scheduler;
 
 import java.util.*;
+import com.inse.model.*;
 
 public class GeneticAlgorithm {
 
