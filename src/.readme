@@ -1,0 +1,9 @@
+To run this in IntelliJ:
+Run - Edit Configurations - Add Tomcat LocalHost
+Under Deployments tab of Tomcat, add an exploded war of the project
+Select the run browser as Chrome
+Once this is done, Run Localhost. It should open up browser page with Browse button to upload file.
+Currently the project is set up that a file gets stored in E://INSE. This is set up in UploadController.java
+The folder has to exist, for the file to be saved there.
+NOTE : Currently the file name as to be Data Sample 2.2.xlsx
+This will later be changed to be configured in a properties file.
