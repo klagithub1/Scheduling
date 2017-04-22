@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a0b0193e-6538-41f8-b79c-327600e847cd" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/inse/GeneticAlgorithm.java" afterPath="$PROJECT_DIR$/src/main/java/com/inse/GeneticAlgorithm.java" />
-    </list>
+    <list default="true" id="a0b0193e-6538-41f8-b79c-327600e847cd" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -741,12 +738,12 @@
       <workItem from="1492313983421" duration="18948000" />
       <workItem from="1492567698167" duration="3502000" />
       <workItem from="1492573744657" duration="6794000" />
-      <workItem from="1492807011626" duration="6233000" />
+      <workItem from="1492807011626" duration="6255000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="35477000" />
+    <option name="totallyTimeSpent" value="35499000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="4" y="23" width="1433" height="857" extended-state="0" />
