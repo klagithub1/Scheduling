@@ -1,6 +1,7 @@
 package com.inse.controller;
 
 import com.inse.model.Bundle;
+import com.inse.scheduler.GeneticAlgorithm;
 import com.inse.service.NurseVisitProcessor;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
@@ -60,28 +61,13 @@ public class UploadController {
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public ModelAndView getList(){
-        List<String> list  = getListItems();
-        ModelAndView model = new ModelAndView("listBundles");
-        model.addObject("lists", list );
-
-        return model;
-    }
-
-    @RequestMapping(value = "/calculate", method = RequestMethod.POST)
-    public ModelAndView calculateSchedule(){
-
-        List<String> list  = getListItems();
-        ModelAndView model = new ModelAndView("listBundles");
-        model.addObject("lists", list );
-
-        nurseVisitProcessor.getBundlesForNurse();
-
-        return model;
-    }
-
-    private List<String> getListItems(){
         List<String> list  = nurseVisitProcessor.getBundlesPerNurseAsList();
-        return list;
+        ModelAndView model = new ModelAndView("listBundles");
+        model.addObject("lists", list );
+
+        //Calculate the best Schedule
+
+        return model;
     }
 
     @GetMapping("/uploadStatus")

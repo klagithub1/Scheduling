@@ -18,6 +18,7 @@
 <div class="mainWrapper">
     <div class="rightSide">
         <table class="listOfNurses dyn-height">
+            <h3>List of Nurse Bundles</h3>
             <thead>
                 <td><b>Nurse</b></td><td><b>Bundle</b></td><td><b>Price</b></td>
             </thead>
@@ -27,9 +28,12 @@
         </table>
     </div>
     <div class="leftClass">
-        <form method="POST" action="${pageContext.request.contextPath}/upload" enctype="multipart/form-data">
-            <input type="button" value="Calculate" />
-        </form>
+        <h3>Best Schedule</h3>
+        <table class="bestScheduleTable dyn-height">
+            <thead>
+            <td><b>Nurse</b></td><td><b>Bundle</b></td><td><b>Price</b></td>
+            </thead>
+        </table>
     </div>
 </div>
 
