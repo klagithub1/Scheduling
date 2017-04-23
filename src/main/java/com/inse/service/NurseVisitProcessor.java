@@ -16,8 +16,8 @@ public class NurseVisitProcessor {
     private Map<Integer,Double> visitsPriceList = new HashMap<Integer,Double>();
     private Map<Integer,ArrayList<Bundle>> bundlesForNurseStructure = new HashMap<Integer, ArrayList<Bundle>>();
 
-    public void processNurseVisits() throws ParseException {
-        ExcelParser parser = new ExcelParser();
+    public void processNurseVisits( String location) throws ParseException {
+        ExcelParser parser = new ExcelParser(location);
         parser.parseExcelFile();
         parser.printBundlesPerNurse();
         List<String> bundlesPerNurse = parser.getBundlesPerNurseAsList();

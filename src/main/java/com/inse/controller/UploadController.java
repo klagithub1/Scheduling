@@ -45,7 +45,8 @@ public class UploadController {
             Path path = Paths.get(UPLOADED_FOLDER + file.getOriginalFilename());
             Files.write(path, bytes);
 
-            nurseVisitProcessor.processNurseVisits();
+            // Parse the excel sheet from the location provided
+            nurseVisitProcessor.processNurseVisits(UPLOADED_FOLDER + file.getOriginalFilename());
             redirectAttributes.addFlashAttribute("message", "You successfully uploaded '" + file.getOriginalFilename() + "'");
 
         } catch (IOException e) {

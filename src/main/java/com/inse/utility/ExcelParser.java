@@ -15,7 +15,7 @@ import java.util.*;
 public class ExcelParser {
 
     //private static final String FILE_NAME = "E://INSE//Data Sample 2-2.xlsx";
-    private static final String FILE_NAME = "//Users//klajdi//Desktop//data_sample//Data Sample.xlsx";
+    //private static final String FILE_NAME = "//Users//klajdi//Desktop//data_sample//Data Sample.xlsx";
 
 
 
@@ -24,10 +24,16 @@ public class ExcelParser {
     private static final int BACKUP_NURSE_SHEET = 0;
     private static final int VISITS_COST_SHEET = 1;
 
+    private String filename = "";
+
+    public ExcelParser(String location) {
+        this.filename = location;
+    }
+
     public void parseExcelFile() throws ParseException {
         try {
 
-            FileInputStream excelFile = new FileInputStream(new File(FILE_NAME));
+            FileInputStream excelFile = new FileInputStream(new File(this.filename));
             Workbook workbook = new XSSFWorkbook(excelFile);
             Sheet backupNurseSheet = workbook.getSheetAt(BACKUP_NURSE_SHEET);
             Sheet feasibleVisits = workbook.getSheetAt(VISITS_COST_SHEET);
@@ -65,7 +71,6 @@ public class ExcelParser {
 
                 Cell currentCell = cellIterator.next();
                 if (currentCell.getCellTypeEnum() == CellType.NUMERIC) {
-                   // System.out.print(currentCell.getNumericCellValue());
 
                     if(visitFilled){
                         cost = currentCell.getNumericCellValue();
@@ -73,11 +78,6 @@ public class ExcelParser {
                         visit = (int)currentCell.getNumericCellValue();
                         visitFilled = true;
                     }
-                }
-                else
-                {
-                    //TODO throw an error if it reaches here
-                    throw new Error();
                 }
             }
 

@@ -9,7 +9,7 @@ public class TestDriverGenetic {
 
     public static void main(String[] args){
 
-        ExcelParser parser =  new ExcelParser();
+        ExcelParser parser =  new ExcelParser("//Users//klajdi//Desktop//data_sample//Data Sample 2-2.xlsx");
 
         try {
             parser.parseExcelFile();
