@@ -30,7 +30,7 @@ public class Schedule {
         for(int i=0; i < solutionBundle.size(); i++){
             totalCost += solutionBundle.get(i).getCostOfVisitBundle();
         }
-        formattedSchedule.add(" ******************* -- *******************  --  *******************");
+        formattedSchedule.add("  --   --  ");
         formattedSchedule.add(" -- Total Nurses Cost:  --"+df.format(totalCost));
 
         return formattedSchedule;

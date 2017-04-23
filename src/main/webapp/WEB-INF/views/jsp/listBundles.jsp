@@ -45,7 +45,7 @@
 <body>
 
 <div class="mainWrapper">
-    <h3>Team Hyperion Genetic Optimization Schedule Calculator</h3>
+
     <div class="container scrollable">
         <div class="right">
             <h3>Best Schedule</h3>

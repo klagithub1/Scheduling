@@ -5,7 +5,7 @@ import com.inse.utility.ExcelParser;
 
 import java.text.ParseException;
 
-public class TestDriver {
+public class TestDriverGenetic {
 
     public static void main(String[] args){
 

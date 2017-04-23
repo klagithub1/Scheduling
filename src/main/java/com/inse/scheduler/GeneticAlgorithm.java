@@ -6,7 +6,7 @@ import com.inse.model.*;
 public class GeneticAlgorithm {
 
 	// Enable multipass (Slower), if enabled does the genetic algorithm many times, as indicated and keeps the best solution,
-	private final static int MULTIPASS_FACTOR=10;
+	private final static int MULTIPASS_FACTOR=200;
 
 	// Start bundle per nurse, decide which bundle we consider part of the domain per each nurse
 	private final static int NURSE_START_BUNDLE = 0;
@@ -93,7 +93,7 @@ public class GeneticAlgorithm {
 		}
 
 		// Print trace
-		//System.out.println("Info: Cost of the solution is: "+cost);
+		// System.out.println("Info: Cost of the solution is: "+cost);
 
 		return cost;
     }
@@ -128,7 +128,7 @@ public class GeneticAlgorithm {
 			solution = this.geneticOptimize();
 		}
 
-		// Assign solution to a solution bundle to build a schedule
+		// Step 2 - Assign solution to a solution bundle to build a schedule
 
 		Map<Integer, Bundle> solutionBundle = new HashMap<Integer, Bundle> ();
 
@@ -136,11 +136,77 @@ public class GeneticAlgorithm {
 			solutionBundle.put(Integer.valueOf(i), this.nurseBundles.get(Integer.valueOf(i)).get(solution[i]));
 		}
 
-		// Step 2 - Optimize further by
+		// Step 3 - Check Covered and Uncovered Visits
 
+		Set<String> coveredVisits = new HashSet<String>();
+		Set<String> unCoveredVisits = new HashSet<String>();
+		Set<String> duplicateVisits = new HashSet<String>();
+
+
+		// Iterate through the visit price list to build initial list
+
+		Iterator<Integer> it = visitsPriceList.keySet().iterator();
+
+		while(it.hasNext()){
+			unCoveredVisits.add(it.next().toString());
+		}
+
+		// Add the visits that are covered
+
+		for(int i=0; i < solution.length; i++){
+			String[] visits = solutionBundle.get(Integer.valueOf(i)).getVisitSequence().trim().split(",");
+
+			for(int j=0; j < visits.length; j++ ){
+
+				// Add Duplicates
+				if(coveredVisits.contains(visits[j].trim())){
+					duplicateVisits.add(visits[j].trim());
+				}
+				// Add to covered visits
+				coveredVisits.add(visits[j].trim());
+			}
+		}
+
+		// Calculate Uncovered Visits
+
+		unCoveredVisits.removeAll(coveredVisits);
+
+		System.out.println(unCoveredVisits);
+		System.out.println(coveredVisits);
+		System.out.println(duplicateVisits);
+
+		// Decide which nurse to eliminate, with the least impact
+
+		// Dramatization !!
 
 		return new Schedule(solutionBundle);
 	}
+
+//	private Map<Integer, Bundle> lastResortDramaticEleminationOfDuplicates(Map<Integer, Bundle> solutionBundle, Set<String> duplicateVisits ){
+//		Map<Integer, ArrayList<Bundle>> dramaticSolution = new HashMap<Integer, ArrayList<Bundle>> ();
+//
+//		Map<Double, Map<Integer, Bundle>>
+//
+//		for(int i=0; i < solutionBundle.size(); i++){
+//			String[] visits = solutionBundle.get(Integer.valueOf(i)).getVisitSequence().trim().split(",");
+//
+//		}
+//
+//
+//
+//		return dramaticSolution;
+//	}
+//
+//
+//	private double caluclateVisitAveragePrice(){
+//
+//		double cost = 0;
+//		for(int i=0; i < visitsPriceList.size(); i++){
+//			cost += visitsPriceList.get(Integer.valueOf(i)).doubleValue();
+//		}
+//
+//		return (cost / (double) visitsPriceList.size());
+//	}
 
     private int[] geneticOptimize(){
 
