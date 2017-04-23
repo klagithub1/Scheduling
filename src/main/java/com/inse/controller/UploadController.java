@@ -21,7 +21,8 @@ import java.util.StringJoiner;
 @Controller
 public class UploadController {
 
-    private static String UPLOADED_FOLDER = "E://INSE//";
+    //private static String UPLOADED_FOLDER = "E://INSE//";
+    private static String UPLOADED_FOLDER = "/Users/klajdi/Desktop/temp/";
     private NurseVisitProcessor nurseVisitProcessor = new NurseVisitProcessor();
 
     @GetMapping("/")
@@ -82,8 +83,6 @@ public class UploadController {
         ModelAndView bundleModel = new ModelAndView("listBundles");
         bundleModel.addObject("Bundle",bundles);
         return bundleModel;
-       // return new ModelAndView("listBundles", "bundles", bundles);
-        //return "uploadStatus";
     }
 
     @GetMapping("/uploadMultiPage")
