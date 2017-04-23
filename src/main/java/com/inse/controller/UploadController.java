@@ -67,17 +67,20 @@ public class UploadController {
         return model;
     }
 
-    @RequestMapping(value = "/calculate", method = RequestMethod.GET)
+    @RequestMapping(value = "/calculate", method = RequestMethod.POST)
     public ModelAndView calculateSchedule(){
+
         List<String> list  = getListItems();
         ModelAndView model = new ModelAndView("listBundles");
         model.addObject("lists", list );
+
+        nurseVisitProcessor.getBundlesForNurse();
 
         return model;
     }
 
     private List<String> getListItems(){
-        List<String> list  = nurseVisitProcessor.getBundlesPerNurse();
+        List<String> list  = nurseVisitProcessor.getBundlesPerNurseAsList();
         return list;
     }
 

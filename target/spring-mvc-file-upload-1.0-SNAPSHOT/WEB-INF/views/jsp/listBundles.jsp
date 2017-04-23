@@ -19,7 +19,7 @@
     <div class="rightSide">
         <table class="listOfNurses dyn-height">
             <thead>
-                <td>Nurse</td><td>Bundle</td><td>Price</td>
+                <td><b>Nurse</b></td><td><b>Bundle</b></td><td><b>Price</b></td>
             </thead>
             <c:forEach var="listValue" items="${lists}">
             <tr><td>${listValue.split("--")[0]}</td><td>${listValue.split("--")[1]}</td><td>${listValue.split("--")[2]}</td></tr>
@@ -27,11 +27,11 @@
         </table>
     </div>
     <div class="leftClass">
-
+        <form method="POST" action="${pageContext.request.contextPath}/upload" enctype="multipart/form-data">
+            <input type="button" value="Calculate" />
+        </form>
     </div>
 </div>
-
-<button>Calculate Schedule</button>
 
 </body>
 </html>

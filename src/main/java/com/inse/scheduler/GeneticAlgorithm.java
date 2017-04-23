@@ -110,33 +110,11 @@ public class GeneticAlgorithm {
 				break;
 			}
 
-//			TreeMap<Double, int[]> rankedPopulationMap = new TreeMap<Double, int[]>();
-//
-//			// Go through the population and add them to the sorted tree, duplications will not be considered
-//			for (int c=0; c < population.size(); c++){
-//				rankedPopulationMap.put(Double.valueOf(this.costf(population.get(c))), population.get(c));
-//			}
-//
-//			// Iterate through the tree map and add the first solutions to the new population, as being part of the elite
-//			int elite_counter = 0;
-//
-//			for(Map.Entry<Double,int[]> entry : rankedPopulationMap.entrySet()) {
-//
-//				// Take the first best solutions as per the elite of population
-//				if(elite_counter < topelite) {
-//					newPopulation.add(entry.getValue());
-//					elite_counter++;
-//				}
-//
-//				rankedPopulationList.add(entry.getValue());
-//			}
-
 			// Sort population by price ASC, cheapest price first
 			ArrayList<int[]> sortedByPricePopulation = sortPopulationByPrice((ArrayList<int[]>) population);
 
 			// Add the first solutions matching the number of elite population to the new population
 			// e.g. if elite is 10, the first 10 vectors should move on to the next generation
-			System.out.println("population z=sieze: "+sortedByPricePopulation.size());
 			for(int i=0; i < topelite; i++){
 				if(sortedByPricePopulation.size() < 1) {
 					return;
@@ -147,7 +125,6 @@ public class GeneticAlgorithm {
 					newPopulation.add(sortedByPricePopulation.get(i));
 				}
 			}
-
 
 			//Starting with these top elite, mutate and crossover between them, until we fill the new population
 			while(newPopulation.size() < POPULATION_SIZE){
