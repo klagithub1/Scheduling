@@ -64,11 +64,14 @@ public class UploadController {
         ModelAndView model = new ModelAndView("listBundles");
         model.addObject("lists", list );
 
-        //Get the Nurse names
+        return model;
+    }
 
-        //Get their bundles
-
-        //get their prices
+    @RequestMapping(value = "/calculate", method = RequestMethod.GET)
+    public ModelAndView calculateSchedule(){
+        List<String> list  = getListItems();
+        ModelAndView model = new ModelAndView("listBundles");
+        model.addObject("lists", list );
 
         return model;
     }

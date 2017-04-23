@@ -7,6 +7,10 @@
             max-height:50px;
             overflow-y:auto;
         }
+
+        table, th, td {
+            border: 1px solid black;
+        }
     </style>
 </head>
 <body>
