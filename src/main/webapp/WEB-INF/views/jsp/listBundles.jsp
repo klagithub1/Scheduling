@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: ssamudhraa
-  Date: 4/18/2017
-  Time: 5:16 PM
-  To change this template use File | Settings | File Templates.
---%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
 <head>
@@ -12,14 +5,30 @@
 </head>
 <body>
 
-<c:if test="${not empty lists}">
-    <ul>
-        <c:forEach var="listValue" items="${lists}">
-            <li>${listValue}</li>
-        </c:forEach>
-    </ul>
+<div class="mainWrapper">
+    <div class="rightSide">
+        <table class="listOfNurses">
+            <thead>
+                <td>Nurse</td><td>Bundle</td><td>Price</td>
+            </thead>
+            <tr><td>1</td><td>1,2,4</td><td>125.44</td></tr>
+        </table>
+        <c:if test="${not empty lists}">
+            <ul>
+                <c:forEach var="listValue" items="${lists}">
+                    <li>${listValue}</li>
+                </c:forEach>
+            </ul>
 
-</c:if>
+        </c:if>
+    </div>
+    <div class="leftClass">
+
+    </div>
+
+</div>
+
+<button>Calculate Schedule</button>
 
 </body>
 </html>
