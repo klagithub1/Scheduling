@@ -4,7 +4,6 @@ import com.inse.model.Bundle;
 import com.inse.scheduler.GeneticAlgorithm;
 import com.inse.service.NurseVisitProcessor;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -17,7 +16,6 @@ import java.nio.file.Paths;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.StringJoiner;
 
 @Controller
 public class UploadController {
@@ -61,11 +59,15 @@ public class UploadController {
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public ModelAndView getList(){
+        // Present list of nurses
         List<String> list  = nurseVisitProcessor.getBundlesPerNurseAsList();
-        ModelAndView model = new ModelAndView("listBundles");
-        model.addObject("lists", list );
 
         //Calculate the best Schedule
+        List<String> solution = new GeneticAlgorithm(nurseVisitProcessor.getBundlesForNurse(), nurseVisitProcessor.getVisitsPriceList()).calculateOptimalSchedule().printFormattedScheduleForTheWeb();
+
+        ModelAndView model = new ModelAndView("listBundles");
+        model.addObject("lists", list );
+        model.addObject("schedule", solution);
 
         return model;
     }

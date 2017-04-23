@@ -12,6 +12,8 @@ import java.util.Map;
 public class NurseVisitProcessor {
 
     private List<String> bundlesPerNurse = new ArrayList<>();
+
+    private Map<Integer,Double> visitsPriceList = new HashMap<Integer,Double>();
     private Map<Integer,ArrayList<Bundle>> bundlesForNurseStructure = new HashMap<Integer, ArrayList<Bundle>>();
 
     public void processNurseVisits() throws ParseException {
@@ -21,6 +23,7 @@ public class NurseVisitProcessor {
         List<String> bundlesPerNurse = parser.getBundlesPerNurseAsList();
         this.setBundlesPerNurse(bundlesPerNurse);
         bundlesForNurseStructure  = parser.getBundlesForNurse();
+        visitsPriceList = parser.getVisitPrice();
     }
 
     public List<String> getBundlesPerNurseAsList() {
@@ -33,5 +36,13 @@ public class NurseVisitProcessor {
 
     public void setBundlesPerNurse(List<String> bundlesPerNurse) {
         this.bundlesPerNurse = bundlesPerNurse;
+    }
+
+    public Map<Integer, Double> getVisitsPriceList() {
+        return visitsPriceList;
+    }
+
+    public void setVisitsPriceList(Map<Integer, Double> visitsPriceList) {
+        this.visitsPriceList = visitsPriceList;
     }
 }

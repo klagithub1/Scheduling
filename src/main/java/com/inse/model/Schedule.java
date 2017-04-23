@@ -1,46 +1,38 @@
 package com.inse.model;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Schedule {
 
-    double scheduleCost;
-    int[] solutionVector;
+    // Solution Bundle
+    private Map<Integer, Bundle> solutionBundle = new HashMap<Integer, Bundle>();
 
-    public Schedule(double scheduleCost, int[] solutionVector){
-
-        this.scheduleCost = scheduleCost;
-        this.solutionVector = solutionVector;
+    public Schedule(Map<Integer, Bundle> solutionBundle){
+        this.solutionBundle = solutionBundle;
     }
 
-    public double getScheduleCost() {
-        return scheduleCost;
-    }
+    public List<String> printFormattedScheduleForTheWeb(){
 
-    public void setScheduleCost(double schedCost) {
-        this.scheduleCost = schedCost;
-    }
+        DecimalFormat df = new DecimalFormat("#.00");
 
-    public int[] getSolutionVector(){
-        return this.solutionVector;
-    }
+        List<String> formattedSchedule = new ArrayList<String>();
 
-    public void setSolutionVector(int[] solution){
-        this.solutionVector = solution;
-    }
-
-    public String toString(){
-
-        // Print Vector
-        String printedVector="";
-        printedVector += "[";
-        for(int j=0; j < this.solutionVector.length; j++){
-            printedVector += this.solutionVector[j]+",";
+        for(int i=0; i < solutionBundle.size(); i++){
+            formattedSchedule.add("Nurse Nr."+(i+1)+" --"+solutionBundle.get(i).getVisitSequence()+" --"+solutionBundle.get(i).getCostOfVisitBundle());
         }
-        printedVector = printedVector.substring(0, printedVector.length() - 1);
-        printedVector += "]";
 
-        return "{ [ Schedule Cost: "+this.scheduleCost+" ] [ Solution Vector: "+printedVector+" ] }";
+        double totalCost = 0.00;
+
+        for(int i=0; i < solutionBundle.size(); i++){
+            totalCost += solutionBundle.get(i).getCostOfVisitBundle();
+        }
+        formattedSchedule.add(" ******************* -- *******************  --  *******************");
+        formattedSchedule.add(" -- Total Nurses Cost:  --"+df.format(totalCost));
+
+        return formattedSchedule;
     }
 }

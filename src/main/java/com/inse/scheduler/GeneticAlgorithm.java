@@ -5,6 +5,9 @@ import com.inse.model.*;
 
 public class GeneticAlgorithm {
 
+	// Enable multipass (Slower), if enabled does the genetic algorithm many times, as indicated and keeps the best solution,
+	private final static int MULTIPASS_FACTOR=10;
+
 	// Start bundle per nurse, decide which bundle we consider part of the domain per each nurse
 	private final static int NURSE_START_BUNDLE = 0;
 
@@ -42,10 +45,15 @@ public class GeneticAlgorithm {
 	// Represent nurses' bundles data structure, where each position in the list represent a nurse, e.g. position 0 represent nurse 1
 	private Map<Integer, ArrayList<Bundle>> nurseBundles = new HashMap<Integer, ArrayList<Bundle>>();
 
-	// Constructor
-	public GeneticAlgorithm(Map<Integer, ArrayList<Bundle>> nurseBundles){
-		this.nurseBundles = nurseBundles;
+	// Represent regular price list
+	private Map<Integer,Double> visitsPriceList = new HashMap<Integer,Double>();
 
+	// Constructor
+	public GeneticAlgorithm(Map<Integer, ArrayList<Bundle>> nurseBundles, Map<Integer,Double> visitsPriceList ){
+		this.nurseBundles = nurseBundles;
+		this.visitsPriceList = visitsPriceList;
+
+		// Initialize domain
 		try {
 			this.initDomain();
 		} catch (Exception e) {
@@ -90,7 +98,51 @@ public class GeneticAlgorithm {
 		return cost;
     }
 
-    public void geneticOptimize(){
+    public Schedule calculateOptimalSchedule() {
+
+		// Step 1 - Genetic Optimization, return best schedule with least conflicts
+		int[] solution;
+
+		if(MULTIPASS_FACTOR > 0) {
+			ArrayList<int[]> sortedSolutions = new ArrayList<int[]>();
+			Map<Double, int[]> rankedSolutions = new TreeMap<Double, int[]>();
+
+			int multipasscounter = 0;
+
+			while (multipasscounter < MULTIPASS_FACTOR){
+				System.out.println("executing"+multipasscounter);
+				int[] aSolution = this.geneticOptimize();
+				rankedSolutions.put(Double.valueOf(costf(aSolution)), aSolution);
+				multipasscounter++;
+			}
+
+			for(Map.Entry<Double,int[]> entry : rankedSolutions.entrySet()) {
+
+				sortedSolutions.add(entry.getValue());
+			}
+
+			solution = sortedSolutions.get(0);
+		}
+		else
+		{
+			solution = this.geneticOptimize();
+		}
+
+		// Assign solution to a solution bundle to build a schedule
+
+		Map<Integer, Bundle> solutionBundle = new HashMap<Integer, Bundle> ();
+
+		for(int i=0; i < solution.length; i++){
+			solutionBundle.put(Integer.valueOf(i), this.nurseBundles.get(Integer.valueOf(i)).get(solution[i]));
+		}
+
+		// Step 2 - Optimize further by
+
+
+		return new Schedule(solutionBundle);
+	}
+
+    private int[] geneticOptimize(){
 
 		// Determine elite winners population sample size
 		// e.g. if Elite is 0.2 (20%) and population size is 10, then the best 2 individuals are the elite
@@ -117,7 +169,7 @@ public class GeneticAlgorithm {
 			// e.g. if elite is 10, the first 10 vectors should move on to the next generation
 			for(int i=0; i < topelite; i++){
 				if(sortedByPricePopulation.size() < 1) {
-					return;
+					break;
 				} else if(sortedByPricePopulation.size() < topelite) {
 					topelite = sortedByPricePopulation.size();
 					newPopulation.add(sortedByPricePopulation.get(i));
@@ -145,14 +197,15 @@ public class GeneticAlgorithm {
 			//System.out.println(printPopulation((ArrayList<int[]>) population));
 		}
 
-		System.out.println(prettyPrintSolution(population.get(0), costf(population.get(0)) ));
+		return population.get(0);
 
+		//System.out.println(prettyPrintSolution(population.get(0), costf(population.get(0)) ));
     }
 
     private int[] mutate(int[] vector) {
 
-    	System.out.println("Mutation: ");
-    	System.out.println(printVector(vector));
+//    	System.out.println("Mutation: ");
+//    	System.out.println(printVector(vector));
 
     	// Generate a random integer, starting from 0 and not including the upper bound
     	int i = (int)(Math.random() * domain.length);
@@ -162,21 +215,21 @@ public class GeneticAlgorithm {
 
 			vector[i] -= GeneticAlgorithm.MUTATION_STEP;
 
-			System.out.println("Mutated: ");
-			System.out.println(printVector(vector));
+//			System.out.println("Mutated: ");
+//			System.out.println(printVector(vector));
 			return vector;
 
 		} else if(vector[i] < domain[i][1]) {
 
 			vector[i] += GeneticAlgorithm.MUTATION_STEP;
-			System.out.println("* Mutated: ");
-			System.out.println(printVector(vector));
+//			System.out.println("* Mutated: ");
+//			System.out.println(printVector(vector));
 			return vector;
 
 		} else {
 			// By default, there is no mutation
-			System.out.println("Not Mutated: ");
-			System.out.println(printVector(vector));
+//			System.out.println("Not Mutated: ");
+//			System.out.println(printVector(vector));
 			return vector;
 		}
     }
@@ -198,17 +251,17 @@ public class GeneticAlgorithm {
 		return crossOver;
 	}
 
-	private TreeMap<Double, int[]> rankPopulationByPrice(ArrayList<int[]> population){
-
-    	TreeMap<Double, int[]> rankedPopulation = new TreeMap<Double, int[]>();
-
-		// Go through the population and add them to the tree, duplicates will be removed
-		for (int c=0; c < population.size(); c++){
-			rankedPopulation.put(Double.valueOf(this.costf(population.get(c))), population.get(c));
-		}
-
-    	return rankedPopulation;
-	}
+//	private TreeMap<Double, int[]> rankPopulationByPrice(ArrayList<int[]> population){
+//
+//    	TreeMap<Double, int[]> rankedPopulation = new TreeMap<Double, int[]>();
+//
+//		// Go through the population and add them to the tree, duplicates will be removed
+//		for (int c=0; c < population.size(); c++){
+//			rankedPopulation.put(Double.valueOf(this.costf(population.get(c))), population.get(c));
+//		}
+//
+//    	return rankedPopulation;
+//	}
 
 	private ArrayList<int[]> initializeRandomPopulation(){
 
@@ -244,7 +297,6 @@ public class GeneticAlgorithm {
 		}
 		return sortedPopulation;
 	}
-
 
 	private void initDomain() throws Exception{
 

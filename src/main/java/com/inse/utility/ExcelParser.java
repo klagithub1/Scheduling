@@ -20,6 +20,7 @@ public class ExcelParser {
 
 
     private static Map<Integer,ArrayList<Bundle>> bundlesForNurse = new HashMap<Integer, ArrayList<Bundle>>();
+    private static Map<Integer,Double> visitsPriceList = new HashMap<Integer,Double>();
     private static final int BACKUP_NURSE_SHEET = 0;
     private static final int VISITS_COST_SHEET = 1;
 
@@ -42,26 +43,49 @@ public class ExcelParser {
     }
 
     private void parseBackupNurseSheet(Sheet backupNurseSheet) {
+
         Iterator<Row> iterator = backupNurseSheet.iterator();
 
+        //Skip the first header
+        iterator.next();
+
+        // Iterate through each row
         while (iterator.hasNext()) {
 
             Row currentRow = iterator.next();
             Iterator<Cell> cellIterator = currentRow.iterator();
 
+            int visit =0;
+            double cost=0;
+
+            boolean visitFilled = false;
+
+            // Iterate through each cell in the row
             while (cellIterator.hasNext()) {
 
                 Cell currentCell = cellIterator.next();
-                if (currentCell.getCellTypeEnum() == CellType.STRING) {
-                    //System.out.print(currentCell.getStringCellValue() + "--");
-                } else if (currentCell.getCellTypeEnum() == CellType.NUMERIC) {
-                    //System.out.print(currentCell.getNumericCellValue() + "--");
+                if (currentCell.getCellTypeEnum() == CellType.NUMERIC) {
+                   // System.out.print(currentCell.getNumericCellValue());
+
+                    if(visitFilled){
+                        cost = currentCell.getNumericCellValue();
+                    }else{
+                        visit = (int)currentCell.getNumericCellValue();
+                        visitFilled = true;
+                    }
+                }
+                else
+                {
+                    //TODO throw an error if it reaches here
+                    throw new Error();
                 }
             }
-            System.out.println();
+
+            if((visit > 0) && (cost > 0)){
+                visitsPriceList.put(Integer.valueOf(visit), Double.valueOf(cost));
+            }
         }
     }
-
 
     private void parseFeasibleVisitSheet(Sheet feasibleVisits) throws IOException, ParseException {
         Iterator<Row> iterator = feasibleVisits.iterator();
@@ -97,7 +121,7 @@ public class ExcelParser {
                 // Filter out, empty bundles and 0 costs.
                 if(!(nurseVisit.equals("") || nurseVisit.isEmpty() || visitCost == 0)){
                     assignBundlesToNurse( nurseNo, new Bundle(nurseVisit.trim(), visitCost));
-                    System.out.println(" INFO: [ nurseNo: "+ nurseNo+" Bundle: \"" + nurseVisit.trim() + "\" - " + "Cost: " + visitCost+" ]");
+                   // System.out.println(" INFO: [ nurseNo: "+ nurseNo+" Bundle: \"" + nurseVisit.trim() + "\" - " + "Cost: " + visitCost+" ]");
                 }
 
                 // Check next nurse
@@ -141,5 +165,8 @@ public class ExcelParser {
 
     public static Map<Integer, ArrayList<Bundle>> getBundlesForNurse() {
         return bundlesForNurse;
+    }
+    public static Map<Integer, Double> getVisitPrice(){
+        return visitsPriceList;
     }
 }

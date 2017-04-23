@@ -15,12 +15,10 @@ import org.springframework.web.servlet.view.JstlView;
 @ComponentScan({"com.inse"})
 public class SpringWebMvcConfig extends WebMvcConfigurerAdapter {
 
-    //@Bean(name = "multipartResolver")
     @Bean
     public MultipartResolver multipartResolver() {
         return new StandardServletMultipartResolver();
     }
-
 
     @Bean
     public InternalResourceViewResolver viewResolver() {
@@ -30,13 +28,4 @@ public class SpringWebMvcConfig extends WebMvcConfigurerAdapter {
         viewResolver.setSuffix(".jsp");
         return viewResolver;
     }
-
-    /*@Bean(name = "multipartResolver")
-    public CommonsMultipartResolver multipartResolver() {
-
-        CommonsMultipartResolver commonsMultipartResolver = new CommonsMultipartResolver();
-        commonsMultipartResolver.setMaxUploadSizePerFile(1000); //bytes
-        return commonsMultipartResolver;
-    }*/
-
 }
