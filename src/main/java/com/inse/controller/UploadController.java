@@ -64,6 +64,12 @@ public class UploadController {
         ModelAndView model = new ModelAndView("listBundles");
         model.addObject("lists", list );
 
+        //Get the Nurse names
+
+        //Get their bundles
+
+        //get their prices
+
         return model;
     }
 

@@ -2,30 +2,29 @@
 <html>
 <head>
     <title>Bundles</title>
+    <style>
+        .dyn-height {
+            max-height:50px;
+            overflow-y:auto;
+        }
+    </style>
 </head>
 <body>
 
 <div class="mainWrapper">
     <div class="rightSide">
-        <table class="listOfNurses">
+        <table class="listOfNurses dyn-height">
             <thead>
                 <td>Nurse</td><td>Bundle</td><td>Price</td>
             </thead>
-            <tr><td>1</td><td>1,2,4</td><td>125.44</td></tr>
+            <c:forEach var="listValue" items="${lists}">
+            <tr><td>${listValue.split("--")[0]}</td><td>${listValue.split("--")[1]}</td><td>${listValue.split("--")[2]}</td></tr>
+            </c:forEach>
         </table>
-        <c:if test="${not empty lists}">
-            <ul>
-                <c:forEach var="listValue" items="${lists}">
-                    <li>${listValue}</li>
-                </c:forEach>
-            </ul>
-
-        </c:if>
     </div>
     <div class="leftClass">
 
     </div>
-
 </div>
 
 <button>Calculate Schedule</button>
