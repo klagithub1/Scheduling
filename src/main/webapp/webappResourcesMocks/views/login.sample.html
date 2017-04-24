@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Nurse Scheduling - Login Page</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="../styles/modified_jquery-ui.css" rel="stylesheet" type="text/css">
+    <link href="../styles/general_styles.css" rel="stylesheet" type="text/css">
+    <link href="../styles/general_main.css" rel="stylesheet" type="text/css">
+    <link href="../styles/bootstrap.css" rel="stylesheet">
+    <script src="../scripts/js/jquery.js" type="text/javascript"></script>
+    <script src="../scripts/js/jquery-ui.js" type="text/javascript"></script>
+    <script src="../scripts/js/slimscroll.js" type="text/javascript"></script>
+    <script src="../scripts/js/jquery.flot.js" type="text/javascript"></script>
+    <script src="../scripts/js/jquery.flot.resize.js" type="text/javascript"></script>
+    <script src="../scripts/js/js.js" type="text/javascript"></script>
+    <script src="../scripts/js/base.js" type="text/javascript"></script>
+
+    <style type="text/css">
+        .grey-text {
+            color: #CCC;
+        }
+        
+        input:focus,
+        img:focus,
+        .button-en:focus,
+        .button-fr:focus,
+        #reset-password:focus,
+        .check-label:focus {
+            box-shadow: 0 0 10px rgb(0, 148, 255) !important;
+            border: 2px solid rgb(0, 148, 255) !important;
+        }
+    </style>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+
+            $(".check-label").keypress(function(e) {
+                if (e.keyCode == 13) {
+                    $("#remember").click();
+                }
+            });
+
+            if ($("#validateUsernameErrorMessage").length > 0) {
+                showOverlay();
+                $('#popup-reset-password').show();
+                $("#email-reset").click();
+            }
+
+            $("#reset-password").click(function() {
+
+                if ($('#invalid-user').length > 0)
+                    $('#invalid-user').hide();
+
+                if ($('#valid-user').length > 0)
+                    $('#valid-user').hide();
+
+                showOverlay();
+                $('#popup-reset-password').show();
+                $("#email-reset").click();
+                return false;
+            });
+
+            $("#reset-password-form").submit(function(e) {
+
+                if (IsNullOrEmpty($("#email-reset").val())) {
+                    $("#email-reset").css("border-color", "#FF0000");
+                    $("#email-reset").css("border-width", "2px");
+
+                    e.preventDefault();
+                    return false;
+                } else {
+                    $("#email-reset").css("border-color", "");
+                    $("#email-reset").css("border-width", "");
+                }
+            });
+        });
+    </script>
+</head>
+
+<body class="login-body" style="height: 100%;">
+    <div class="login-tr">
+        <div class="login-td">
+            <div class="login-page">
+                <div class="login-block">
+                    <h1 lang="en">Nurse Scheduling System</h1>
+                    <form action="#" method="post">
+                        <div class="form-item">
+                            <label for="email" style="color: black;">Username</label>
+                            <input tabindex="5" aria-label="Username" type="text" id="email" name="email" class="form-text with-text" placeholder="Email" address="" style="background-image: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAkCAYAAADo6zjiAAAAAXNSR0IArs4c6QAAAx9JREFUWAndV79LY0EQnjySSAQ1OUG4OxvxR5BALggBi0BEIYUYtLC43v8ghZVgY3V9/oUjpMovEBvRSsGAHrY2Yi7BwlgEREXNzffMLnnP91bzkiDcQNjdmdlvvt3ZnbdxEcvOzs73p6enX9xdaDab36DrlbhcripjHbjd7s2tra2/ZlxXK/gfDjxqNvZyzERumMQPMwkNK+93cCwEMVq7bFiXxqMFg6a/gzextF7nXMXfKhZ24FPl/yYwOztLqVSK0NpJX3cgFArR8PAwobWTvhLgu6/HFa0Vib4SsApo1hkIDAwM0OTkJAUCAbMfObW9ATIp3GLs9/tpY2ODhoaG6OXlhQqFAp2dnelmpzaBrWrlDszPz+vB4axpGi0uLsp5Tm0SQNGRBBQ+fTVJAsfHx9RoNPRgSMH+/r4M7NQmARQd1/b2dlPYcdDGx8epXq/T7e2tUOutymZwfGfAV7LGLoet98GVgcA7c3tqZiJ1JhGRKegp+gfA+Mv4Be+DTyPQ4hiXdeADpG1dUCei0ShNT0/TyMgI3d/fU61Wo3K5TBcXF7bzeBe+dk0gHA7TysoKeb1eGQgHFkRmZmZod3eXTk5OpM3c6ToFExMThuDPz88yBgpaIpHQy7hUmjpd70CxWCSkYHBwkEqlElUqFYrFYrS0tKSH8ng8uv36+toU+nXo5utQtXqrWXpbKFG0MpkMYeV8qnUP1JF2EQWuXSf6SMGBGDhtHx4eZHCsOB6PS6jLy0u6u7uTY3NHQ0XiXbgxG5yMkfP19XUaGxvTp2NH9vb2lFAa/qngHwuT+I10KL0VRp5La2trFAwGdS+kJp/PU7Wqhnx9MymAzab2b4ewIfjq6ipFIhFdhfOQy+Xo/PxcuNi2Xd8CICeTSRn88fGRstmssgC1s+mawPLyMs3NzUlMrB53Hz8hR0dHdHp6KoaGtmsCU1NTBkCfz0f4tQtqhJ10XAk53/ie90SA5WQHDjn6T8EgnU4TDqFKcCNs5LBjAqgbfL8T+J4DtL322wSxVDNpPEg2O04B140rnhhhgAy20BJdocQczAUGsP4BPJYni4VMj2AAAAAASUVORK5CYII=&quot;); background-repeat: no-repeat; background-attachment: scroll; background-size: 16px 18px; background-position: 98% 50%;"
+                                autocomplete="off">
+                        </div>
+                        <div class="form-item">
+                            <label for="password" style="color: black;">Password</label>
+                            <input tabindex="6" aria-label="Password" type="password" id="password" name="password" class="form-text" value="" style="background-image: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAkCAYAAADo6zjiAAAAAXNSR0IArs4c6QAAAx9JREFUWAndV79LY0EQnjySSAQ1OUG4OxvxR5BALggBi0BEIYUYtLC43v8ghZVgY3V9/oUjpMovEBvRSsGAHrY2Yi7BwlgEREXNzffMLnnP91bzkiDcQNjdmdlvvt3ZnbdxEcvOzs73p6enX9xdaDab36DrlbhcripjHbjd7s2tra2/ZlxXK/gfDjxqNvZyzERumMQPMwkNK+93cCwEMVq7bFiXxqMFg6a/gzextF7nXMXfKhZ24FPl/yYwOztLqVSK0NpJX3cgFArR8PAwobWTvhLgu6/HFa0Vib4SsApo1hkIDAwM0OTkJAUCAbMfObW9ATIp3GLs9/tpY2ODhoaG6OXlhQqFAp2dnelmpzaBrWrlDszPz+vB4axpGi0uLsp5Tm0SQNGRBBQ+fTVJAsfHx9RoNPRgSMH+/r4M7NQmARQd1/b2dlPYcdDGx8epXq/T7e2tUOutymZwfGfAV7LGLoet98GVgcA7c3tqZiJ1JhGRKegp+gfA+Mv4Be+DTyPQ4hiXdeADpG1dUCei0ShNT0/TyMgI3d/fU61Wo3K5TBcXF7bzeBe+dk0gHA7TysoKeb1eGQgHFkRmZmZod3eXTk5OpM3c6ToFExMThuDPz88yBgpaIpHQy7hUmjpd70CxWCSkYHBwkEqlElUqFYrFYrS0tKSH8ng8uv36+toU+nXo5utQtXqrWXpbKFG0MpkMYeV8qnUP1JF2EQWuXSf6SMGBGDhtHx4eZHCsOB6PS6jLy0u6u7uTY3NHQ0XiXbgxG5yMkfP19XUaGxvTp2NH9vb2lFAa/qngHwuT+I10KL0VRp5La2trFAwGdS+kJp/PU7Wqhnx9MymAzab2b4ewIfjq6ipFIhFdhfOQy+Xo/PxcuNi2Xd8CICeTSRn88fGRstmssgC1s+mawPLyMs3NzUlMrB53Hz8hR0dHdHp6KoaGtmsCU1NTBkCfz0f4tQtqhJ10XAk53/ie90SA5WQHDjn6T8EgnU4TDqFKcCNs5LBjAqgbfL8T+J4DtL322wSxVDNpPEg2O04B140rnhhhgAy20BJdocQczAUGsP4BPJYni4VMj2AAAAAASUVORK5CYII=&quot;); background-repeat: no-repeat; background-attachment: scroll; background-size: 16px 18px; background-position: 98% 50%;"
+                                autocomplete="off">
+                        </div>
+                        <div class="check-label" tabindex="7">
+                            <label for="remember" class="visuallyhidden">Remember:</label>
+                            <input tabindex="-1" type="checkbox" value="1" name="remember" id="remember"> Stay signed in
+                        </div>
+                        <input tabindex="8" type="submit" value="Sign in" class="blue-button">
+                    </form>
+                    <div class="links">
+                        <p><a tabindex="9" style="color: #000000;">Forgot your password?</a></p>
+                    </div>
+                    <div class="foot" lang="en">
+                        <p>© 2017 Concordia University, INSE 6260, Team Hyperion</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

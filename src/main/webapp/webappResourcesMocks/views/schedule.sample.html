@@ -1,0 +1,1165 @@
+<!DOCTYPE html>
+<!-- saved from url=(0078)#/calendar/week/94c69e4f-0b51-45ac-8fef-e877ead2976a -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width">
+    
+    
+    <title>Calendar/Weekly View</title>
+
+    <link rel="stylesheet" href="../styles/general_main.css">
+    <link rel="stylesheet" href="../styles/bootstrap.css">
+    <link href="../styles/modified_jquery-ui.css" rel="stylesheet" type="text/css">
+    <link href="../styles/general_styles.css" rel="stylesheet" type="text/css">
+    <link href="../styles/ToggleSwitch.css" rel="stylesheet" type="text/css">
+    <script async="" src="../scripts/js/analytics.js"></script><script src="../scripts/js/jquery.js" type="text/javascript"></script>
+    <script src="../scripts/js/jquery.cookie.js" type="text/javascript"></script>
+    <script src="../scripts/js/jquery-ui.js" type="text/javascript"></script>
+    <script src="../scripts/js/slimscroll.js" type="text/javascript"></script>
+    <script src="../scripts/js/jquery.flot.js" type="text/javascript"></script>
+    <script src="../scripts/js/jquery.flot.resize.js" type="text/javascript"></script>
+    <script src="../scripts/js/jquery.jstree.js" type="text/javascript"></script>
+    <script type="text/javascript" src="../scripts/js/jquery.titlealert.js"></script>
+    <script src="../scripts/js/js.js" type="text/javascript"></script>
+    <script src="../scripts/js/base.js" type="text/javascript"></script>
+    <script src="../scripts/js/bootstrap.js" type="text/javascript"></script>
+    <script src="../scripts/js/json2.min.js"></script>
+    
+    
+
+    <style type="text/css">
+        li:focus, span:focus, a:focus, textarea:focus {
+            box-shadow: 0 0 10px rgb(0, 148, 255) !important;
+            border: 2px solid rgb(0, 148, 255) !important;
+        }
+    </style>
+
+    
+
+
+<style type="text/css" id="vakata-stylesheet">#vakata-dragged { display:block; margin:0 0 0 0; padding:4px 4px 4px 24px; position:absolute; top:-2000px; line-height:16px; z-index:10000; } #vakata-contextmenu { display:block; visibility:hidden; left:0; top:-200px; position:absolute; margin:0; padding:0; min-width:180px; background:#ebebeb; border:1px solid silver; z-index:10000; *width:180px; } #vakata-contextmenu ul { min-width:180px; *width:180px; } #vakata-contextmenu ul, #vakata-contextmenu li { margin:0; padding:0; list-style-type:none; display:block; } #vakata-contextmenu li { line-height:20px; min-height:20px; position:relative; padding:0px; } #vakata-contextmenu li a { padding:1px 6px; line-height:17px; display:block; text-decoration:none; margin:1px 1px 0 1px; } #vakata-contextmenu li ins { float:left; width:16px; height:16px; text-decoration:none; margin-right:2px; } #vakata-contextmenu li a:hover, #vakata-contextmenu li.vakata-hover > a { background:gray; color:white; } #vakata-contextmenu li ul { display:none; position:absolute; top:-2px; left:100%; background:#ebebeb; border:1px solid gray; } #vakata-contextmenu .right { right:100%; left:auto; } #vakata-contextmenu .bottom { bottom:-1px; top:auto; } #vakata-contextmenu li.vakata-separator { min-height:0; height:1px; line-height:1px; font-size:1px; overflow:hidden; margin:0 2px; background:silver; /* border-top:1px solid #fefefe; */ padding:0; } </style><style type="text/css" id="jstree-stylesheet">.jstree ul, .jstree li { display:block; margin:0 0 0 0; padding:0 0 0 0; list-style-type:none; } .jstree li { display:block; min-height:18px; line-height:18px; white-space:nowrap; margin-left:18px; min-width:18px; } .jstree-rtl li { margin-left:0; margin-right:18px; } .jstree > ul > li { margin-left:0px; } .jstree-rtl > ul > li { margin-right:0px; } .jstree ins { display:inline-block; text-decoration:none; width:18px; height:18px; margin:0 0 0 0; padding:0; } .jstree a { display:inline-block; line-height:16px; height:16px; color:black; white-space:nowrap; text-decoration:none; padding:1px 2px; margin:0; } .jstree a:focus { outline: none; } .jstree a > ins { height:16px; width:16px; } .jstree a > .jstree-icon { margin-right:3px; } .jstree-rtl a > .jstree-icon { margin-left:3px; margin-right:0; } li.jstree-open > ul { display:block; } li.jstree-closed > ul { display:none; } #vakata-dragged ins { display:block; text-decoration:none; width:16px; height:16px; margin:0 0 0 0; padding:0; position:absolute; top:4px; left:4px;  -moz-border-radius:4px; border-radius:4px; -webkit-border-radius:4px; } #vakata-dragged .jstree-ok { background:green; } #vakata-dragged .jstree-invalid { background:red; } #jstree-marker { padding:0; margin:0; font-size:12px; overflow:hidden; height:12px; width:8px; position:absolute; top:-30px; z-index:10001; background-repeat:no-repeat; display:none; background-color:transparent; text-shadow:1px 1px 1px white; color:black; line-height:10px; } #jstree-marker-line { padding:0; margin:0; line-height:0%; font-size:1px; overflow:hidden; height:1px; width:100px; position:absolute; top:-30px; z-index:10000; background-repeat:no-repeat; display:none; background-color:#456c43;  cursor:pointer; border:1px solid #eeeeee; border-left:0; -moz-box-shadow: 0px 0px 2px #666; -webkit-box-shadow: 0px 0px 2px #666; box-shadow: 0px 0px 2px #666;  -moz-border-radius:1px; border-radius:1px; -webkit-border-radius:1px; }.jstree .jstree-real-checkbox { display:none; } .jstree-themeroller .ui-icon { overflow:visible; } .jstree-themeroller a { padding:0 2px; } .jstree-themeroller .jstree-no-icon { display:none; }.jstree .jstree-wholerow-real { position:relative; z-index:1; } .jstree .jstree-wholerow-real li { cursor:pointer; } .jstree .jstree-wholerow-real a { border-left-color:transparent !important; border-right-color:transparent !important; } .jstree .jstree-wholerow { position:relative; z-index:0; height:0; } .jstree .jstree-wholerow ul, .jstree .jstree-wholerow li { width:100%; } .jstree .jstree-wholerow, .jstree .jstree-wholerow ul, .jstree .jstree-wholerow li, .jstree .jstree-wholerow a { margin:0 !important; padding:0 !important; } .jstree .jstree-wholerow, .jstree .jstree-wholerow ul, .jstree .jstree-wholerow li { background:transparent !important; }.jstree .jstree-wholerow ins, .jstree .jstree-wholerow span, .jstree .jstree-wholerow input { display:none !important; }.jstree .jstree-wholerow a, .jstree .jstree-wholerow a:hover { text-indent:-9999px; !important; width:100%; padding:0 !important; border-right-width:0px !important; border-left-width:0px !important; } .jstree .jstree-wholerow-span { position:absolute; left:0; margin:0px; padding:0; height:18px; border-width:0; padding:0; z-index:0; }</style></head>
+<body style="height: auto;">
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <ul class="nav navbar-nav">
+                <li class="active"><a style="text-decoration: none ;" href="#">Home</a></li>
+                <li><a style="text-decoration: none ;" href="#">Schedule</a></li>
+                <li><a style="text-decoration: none ;" href="#">Profile</a></li>
+            </ul>
+        </div>
+    </nav>
+    <input type="hidden" id="base-address" name="base-address" value="#">
+    <input type="hidden" id="GlobalMessageError" value="Learner creation failed. Please make sure  your client contract includes the required evaluations.">
+    <input type="hidden" id="GlobalMessageErrorUserName" value="A user with the same email address already exists.">
+    <input type="hidden" id="GlobalMessageSuccess" value="The user was created successfully!">
+    <input type="hidden" id="GlobalMessageSuccessUser" value="Create user successfully.">
+    <input type="hidden" id="GlobalMessageSuccessUser2" value="The user was created successfully!">
+    <input type="hidden" id="session-time-out" value="6">
+    <input type="hidden" id="before-session-time-out" value="1">
+    <input type="hidden" id="documentTitle" value="Calendar/Weekly View">
+    <input type="hidden" id="imgPath" value="#">
+
+    <div class="top-bg">
+        <div class="bottom-bg">
+            <div class="main-cont">
+                <input type="hidden" id="printer-friendly-page-address" value="#/calendar/week/94c69e4f-0b51-45ac-8fef-e877ead2976a">
+                <div id="txt-time"></div>
+                <div class="header no-print">
+                    
+                    <div class="header">
+                        <div class="logo-block">
+                            
+                            <h2><span>Language Research Development Group</span></h2>
+                        </div>
+                       
+                    </div>
+                </div>
+
+                <div class="page-head">
+
+                    <h1 style="display: inline; margin-right: 20px; vertical-align: middle">Schedule Weekly View</h1>
+
+
+                    
+
+                    <span id="dashboard-saved-msg" style="color: red;margin-left: 400px;display: none;">Dashboard items saved</span>
+                </div>
+
+                
+                                    <div style="float: right" class="names no-print">
+                   
+
+                    </div>
+
+                <div>
+                    
+
+
+
+<link href="../styles/Calendar.css" rel="stylesheet">
+<script type="text/javascript" src="../scripts/js/Calendar.js"></script>
+
+
+
+<div class="cal-container">
+  <div class="col-1">
+        <div class="cal-left-block">
+            <div class="button">
+
+                <input type="button" class="btn btn-primary" id="add-availability" value="Add Availability" data-date="19.03.2017">
+                <!--<input type="button" class="btn btn-primary" id="book-lesson" title="" value="Book an Appointment">-->
+
+                
+            </div>
+            <!--<div class="legend">
+                <label class="lessons">
+                    <input type="checkbox" id="lessons-checkbox" data-queryparam="lcu" checked="checked" value="1">
+                    <span>Lessons</span></label>
+                <label class="miscelanious">
+                    <input type="checkbox" id="misscelanious-checkbox" data-queryparam="mcu" checked="checked" value="1">
+                    <span>Miscellaneous</span></label>
+                <label class="availability">
+                    <input type="checkbox" id="tutors-checkbox" data-queryparam="tcu" checked="checked" value="1">
+                    <span id="tutor-or-learner">
+Learner's Availability                    </span></label>
+                <div class="tutor-avalability-select">
+                    <select id="tutor-avalability-filter" class="form-select"><option value="00000000-0000-0000-0000-000000000000">All</option><option value="f53d4b2a-b637-40b5-a5d5-4a5d1041c5b9">Bing So</option><option value="0a81bdff-9553-40b2-a649-4ae72d6fa7cb">Lori Buckle</option><option value="c0d03d53-7475-42c1-8b69-691cdf6c8722">James McNeil</option></select>
+
+                </div>
+                <label class="tutor-availability">
+                    <input type="checkbox" id="availability-checkbox" checked="checked" data-queryparam="acu" value="1">
+                    <span>My Availability</span></label>
+            </div>-->
+        </div>
+    </div>
+    <div class="col-2">
+        <div class="big-cal">
+            <div class="head">
+                <a href="#/calendar/week/94c69e4f-0b51-45ac-8fef-e877ead2976a?start=2017.03.22" class="button-grey today">Today</a>
+
+                <div class="date-chooser" id="current-month">
+
+                    <div class="drop-menu">
+                        <div class="current">March</div>
+                        <ul>
+                            <li><a class="startdate" href="#/calendar/week/94c69e4f-0b51-45ac-8fef-e877ead2976a?start=2017.01.01">January</a></li>
+                            <li><a class="startdate" href="#/calendar/week/94c69e4f-0b51-45ac-8fef-e877ead2976a?start=2017.02.01">February</a></li>
+                            <li><a class="startdate" href="#/calendar/week/94c69e4f-0b51-45ac-8fef-e877ead2976a?start=2017.03.01">March</a></li>
+                            <li><a class="startdate" href="#/calendar/week/94c69e4f-0b51-45ac-8fef-e877ead2976a?start=2017.04.01">April</a></li>
+                            <li><a class="startdate" href="#/calendar/week/94c69e4f-0b51-45ac-8fef-e877ead2976a?start=2017.05.01">May</a></li>
+                            <li><a class="startdate" href="#/calendar/week/94c69e4f-0b51-45ac-8fef-e877ead2976a?start=2017.06.01">June</a></li>
+                            <li><a class="startdate" href="#/calendar/week/94c69e4f-0b51-45ac-8fef-e877ead2976a?start=2017.07.01">July</a></li>
+                            <li><a class="startdate" href="#/calendar/week/94c69e4f-0b51-45ac-8fef-e877ead2976a?start=2017.08.01">August</a></li>
+                            <li><a class="startdate" href="#/calendar/week/94c69e4f-0b51-45ac-8fef-e877ead2976a?start=2017.09.01">September</a></li>
+                            <li><a class="startdate" href="#/calendar/week/94c69e4f-0b51-45ac-8fef-e877ead2976a?start=2017.10.01">October</a></li>
+                            <li><a class="startdate" href="#/calendar/week/94c69e4f-0b51-45ac-8fef-e877ead2976a?start=2017.11.01">November</a></li>
+                            <li><a class="startdate" href="#/calendar/week/94c69e4f-0b51-45ac-8fef-e877ead2976a?start=2017.12.01">December</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="drop-menu" id="current-year">
+                        <div class="current">2017</div>
+                        <ul>
+                            <li><a class="startdate" href="#/calendar/week/94c69e4f-0b51-45ac-8fef-e877ead2976a?start=2007.01.08">2007</a></li>
+                            <li><a class="startdate" href="#/calendar/week/94c69e4f-0b51-45ac-8fef-e877ead2976a?start=2008.01.08">2008</a></li>
+                            <li><a class="startdate" href="#/calendar/week/94c69e4f-0b51-45ac-8fef-e877ead2976a?start=2009.01.08">2009</a></li>
+                            <li><a class="startdate" href="#/calendar/week/94c69e4f-0b51-45ac-8fef-e877ead2976a?start=2010.01.08">2010</a></li>
+                            <li><a class="startdate" href="#/calendar/week/94c69e4f-0b51-45ac-8fef-e877ead2976a?start=2011.01.08">2011</a></li>
+                            <li><a class="startdate" href="#/calendar/week/94c69e4f-0b51-45ac-8fef-e877ead2976a?start=2012.01.08">2012</a></li>
+                            <li><a class="startdate" href="#/calendar/week/94c69e4f-0b51-45ac-8fef-e877ead2976a?start=2013.01.08">2013</a></li>
+                            <li><a class="startdate" href="#/calendar/week/94c69e4f-0b51-45ac-8fef-e877ead2976a?start=2014.01.08">2014</a></li>
+                            <li><a class="startdate" href="#/calendar/week/94c69e4f-0b51-45ac-8fef-e877ead2976a?start=2015.01.08">2015</a></li>
+                            <li><a class="startdate" href="#/calendar/week/94c69e4f-0b51-45ac-8fef-e877ead2976a?start=2016.01.08">2016</a></li>
+                            <li><a class="startdate" href="#/calendar/week/94c69e4f-0b51-45ac-8fef-e877ead2976a?start=2017.01.08">2017</a></li>
+                            <li><a class="startdate" href="#/calendar/week/94c69e4f-0b51-45ac-8fef-e877ead2976a?start=2018.01.08">2018</a></li>
+                            <li><a class="startdate" href="#/calendar/week/94c69e4f-0b51-45ac-8fef-e877ead2976a?start=2019.01.08">2019</a></li>
+                            <li><a class="startdate" href="#/calendar/week/94c69e4f-0b51-45ac-8fef-e877ead2976a?start=2020.01.08">2020</a></li>
+                        </ul>     
+                    </div>        
+                                  
+                </div>  
+
+            </div>
+
+            <div class="calendar-container">
+
+                <table class="calendar week-calendar">	<thead>
+	<tr>
+		<th width="55px">&nbsp;</th>
+		<th width="14%">Sunday, 19</th>
+		<th width="14%">Monday, 20</th>
+		<th width="14%">Tuesday, 21</th>
+		<th width="14%">Wednesday, 22</th>
+		<th width="14%">Thursday, 23</th>
+		<th width="14%">Friday, 24</th>
+		<th width="14%">Saturday, 25</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+<td rowspan="2">00:00</td><td></td><td><div class="cell"><a class="lessons-event event" data-id="3f4099fe-1122-441b-8b15-db5020932ea2" data-item="{&quot;Appointment&quot;:&quot;73bd7d1f-6f1b-4410-9bc0-4ae6fb3ca38c&quot;,&quot;Category&quot;:&quot;5d33bf1f-e6d4-4b64-8915-76b004f1b6b9&quot;,&quot;EndDate&quot;:&quot;2017-03-20T01:00:00-04:00&quot;,&quot;ID&quot;:&quot;3f4099fe-1122-441b-8b15-db5020932ea2&quot;,&quot;ModuleName&quot;:&quot;FSL Module 1&quot;,&quot;Name&quot;:&quot;Bing So&quot;,&quot;Notes&quot;:null,&quot;SessionReport&quot;:null,&quot;Student&quot;:&quot;f53d4b2a-b637-40b5-a5d5-4a5d1041c5b9&quot;,&quot;StartDate&quot;:&quot;2017-03-20T00:00:00-04:00&quot;,&quot;TimeZone&quot;:null,&quot;Phone&quot;:null,&quot;Extension&quot;:null,&quot;IsEOMExam&quot;:false,&quot;LessonDuration&quot;:60}" style="height:48px;"><span class="icon">&nbsp;</span><span class="text">Bing So</span><span class="tooltip-content"><span class="ev-name">Bing So</span><span class="time">00:00 - 01:00</span><span class="learner-info"><div class="userimage" style="text-alignment:center;overflow:hidden;"><img src="../scripts/js/no-photo.png" alt="user-image" onerror="this.src=&#39;/Images/no-photo.png&#39;;" style="max-height:100%;display:inline-block;;overflow:hidden;"></div><span class="learner-name">Bing So</span></span></span></a></div></td><td></td><td></td><td></td><td></td><td></td>	</tr>
+	<tr>
+<td></td><td></td><td></td><td></td><td></td><td></td><td></td>	</tr>
+	<tr>
+<td rowspan="2">01:00</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>	</tr>
+	<tr>
+<td></td><td></td><td></td><td></td><td></td><td></td><td></td>	</tr>
+	<tr>
+<td rowspan="2">02:00</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>	</tr>
+	<tr>
+<td></td><td></td><td></td><td></td><td></td><td></td><td></td>	</tr>
+	<tr>
+<td rowspan="2">03:00</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>	</tr>
+	<tr>
+<td></td><td></td><td></td><td></td><td></td><td></td><td></td>	</tr>
+	<tr>
+<td rowspan="2">04:00</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>	</tr>
+	<tr>
+<td></td><td></td><td></td><td></td><td></td><td></td><td></td>	</tr>
+	<tr>
+<td rowspan="2">05:00</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>	</tr>
+	<tr>
+<td></td><td></td><td></td><td></td><td></td><td></td><td></td>	</tr>
+	<tr>
+<td rowspan="2">06:00</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>	</tr>
+	<tr>
+<td></td><td></td><td></td><td></td><td></td><td></td><td></td>	</tr>
+	<tr>
+<td rowspan="2">07:00</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>	</tr>
+	<tr>
+<td></td><td></td><td></td><td></td><td></td><td></td><td></td>	</tr>
+	<tr>
+<td rowspan="2">08:00</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>	</tr>
+	<tr>
+<td></td><td></td><td></td><td></td><td></td><td></td><td></td>	</tr>
+	<tr>
+<td rowspan="2">09:00</td><td></td><td></td><td><div class="cell"><a class="otheravailability-event event" data-date="21.03.2017" data-calendaritems="[]" data-id="0a81bdff-9553-40b2-a649-4ae72d6fa7cb" data-item="{&quot;Appointment&quot;:null,&quot;Category&quot;:&quot;91a94d2d-bb10-4a3d-b303-db0155d70248&quot;,&quot;EndDate&quot;:&quot;2017-03-21T11:00:00-04:00&quot;,&quot;ID&quot;:&quot;0a81bdff-9553-40b2-a649-4ae72d6fa7cb&quot;,&quot;ModuleName&quot;:null,&quot;Name&quot;:&quot;Lori Buckle&quot;,&quot;Notes&quot;:null,&quot;SessionReport&quot;:null,&quot;Student&quot;:null,&quot;StartDate&quot;:&quot;2017-03-21T09:00:00-04:00&quot;,&quot;TimeZone&quot;:null,&quot;Phone&quot;:null,&quot;Extension&quot;:null,&quot;IsEOMExam&quot;:false,&quot;LessonDuration&quot;:0}" style="height:100px;width:49%; left:50%"><span class="text">Lori Buckle</span></a></div></td><td></td><td></td><td></td><td></td>	</tr>
+	<tr>
+<td></td><td></td><td></td><td></td><td></td><td></td><td></td>	</tr>
+	<tr>
+<td rowspan="2">10:00</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>	</tr>
+	<tr>
+<td></td><td></td><td></td><td></td><td></td><td></td><td></td>	</tr>
+	<tr>
+<td rowspan="2">11:00</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>	</tr>
+	<tr>
+<td></td><td></td><td></td><td></td><td></td><td></td><td></td>	</tr>
+	<tr>
+<td rowspan="2">12:00</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>	</tr>
+	<tr>
+<td></td><td></td><td></td><td></td><td></td><td></td><td></td>	</tr>
+	<tr>
+<td rowspan="2">13:00</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>	</tr>
+	<tr>
+<td></td><td></td><td></td><td></td><td></td><td></td><td></td>	</tr>
+	<tr>
+<td rowspan="2">14:00</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>	</tr>
+	<tr>
+<td></td><td></td><td></td><td></td><td></td><td></td><td></td>	</tr>
+	<tr>
+<td rowspan="2">15:00</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>	</tr>
+	<tr>
+<td></td><td></td><td></td><td></td><td></td><td></td><td></td>	</tr>
+	<tr>
+<td rowspan="2">16:00</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>	</tr>
+	<tr>
+<td></td><td></td><td></td><td></td><td></td><td></td><td></td>	</tr>
+	<tr>
+<td rowspan="2">17:00</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>	</tr>
+	<tr>
+<td></td><td></td><td></td><td></td><td></td><td></td><td></td>	</tr>
+	<tr>
+<td rowspan="2">18:00</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>	</tr>
+	<tr>
+<td></td><td></td><td></td><td></td><td></td><td></td><td></td>	</tr>
+	<tr>
+<td rowspan="2">19:00</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>	</tr>
+	<tr>
+<td></td><td></td><td></td><td></td><td></td><td></td><td></td>	</tr>
+	<tr>
+<td rowspan="2">20:00</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>	</tr>
+	<tr>
+<td></td><td></td><td></td><td></td><td></td><td></td><td></td>	</tr>
+	<tr>
+<td rowspan="2">21:00</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>	</tr>
+	<tr>
+<td></td><td></td><td></td><td></td><td></td><td></td><td></td>	</tr>
+	<tr>
+<td rowspan="2">22:00</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>	</tr>
+	<tr>
+<td></td><td></td><td></td><td></td><td></td><td></td><td></td>	</tr>
+	<tr>
+<td rowspan="2">23:00</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>	</tr>
+	<tr>
+<td></td><td></td><td></td><td></td><td></td><td></td><td></td>	</tr>
+	</tbody>
+</table>
+
+         
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+<input type="hidden" id="lessonCategoryName" value="Lessons">
+<input type="hidden" id="groupCategoryName" value="Group Sessions">
+
+
+<script type="text/javascript">
+    var isClassroom = false;
+    var calendar = {"Categories":[{"Color":4285542560,"ID":"91a94d2d-bb10-4a3d-b303-db0155d70248","Name":"Learner's Availability","Type":0},{"Color":4278235216,"ID":"e324a853-1ccb-4dd5-ab63-103227913452","Name":"Availability","Type":1},{"Color":4290772992,"ID":"5d33bf1f-e6d4-4b64-8915-76b004f1b6b9","Name":"Individual Lessons","Type":2}],"Items":[{"Appointment":"73bd7d1f-6f1b-4410-9bc0-4ae6fb3ca38c","Category":"5d33bf1f-e6d4-4b64-8915-76b004f1b6b9","EndDate":"2017-03-20T01:00:00-04:00","ID":"3f4099fe-1122-441b-8b15-db5020932ea2","ModuleName":"FSL Module 1","Name":"Bing So","Notes":null,"SessionReport":null,"Student":"f53d4b2a-b637-40b5-a5d5-4a5d1041c5b9","StartDate":"2017-03-20T00:00:00-04:00","TimeZone":null,"Phone":null,"Extension":null,"IsEOMExam":false,"LessonDuration":60}],"OtherUserItems":{"0a81bdff-9553-40b2-a649-4ae72d6fa7cb":[{"Appointment":null,"Category":"91a94d2d-bb10-4a3d-b303-db0155d70248","EndDate":"2017-03-21T11:00:00-04:00","ID":"0a81bdff-9553-40b2-a649-4ae72d6fa7cb","ModuleName":null,"Name":"Lori Buckle","Notes":null,"SessionReport":null,"Student":null,"StartDate":"2017-03-21T09:00:00-04:00","TimeZone":null,"Phone":null,"Extension":null,"IsEOMExam":false,"LessonDuration":0},{"Appointment":null,"Category":"91a94d2d-bb10-4a3d-b303-db0155d70248","EndDate":"2017-03-28T11:00:00-04:00","ID":"0a81bdff-9553-40b2-a649-4ae72d6fa7cb","ModuleName":null,"Name":"Lori Buckle","Notes":null,"SessionReport":null,"Student":null,"StartDate":"2017-03-28T09:00:00-04:00","TimeZone":null,"Phone":null,"Extension":null,"IsEOMExam":false,"LessonDuration":0}]},"EOMExaminers":{},"Students":[{"ID":"f53d4b2a-b637-40b5-a5d5-4a5d1041c5b9","Name":"Bing So","IsEOMExaminer":false},{"ID":"c0d03d53-7475-42c1-8b69-691cdf6c8722","Name":"James McNeil","IsEOMExaminer":false},{"ID":"0a81bdff-9553-40b2-a649-4ae72d6fa7cb","Name":"Lori Buckle","IsEOMExaminer":false}]}
+
+
+</script>
+
+<div class="popup-form popup-win popup-other">
+                            <h6>Add other</h6>
+                            <form action="#/calendar/week/94c69e4f-0b51-45ac-8fef-e877ead2976a?" method="post" class="event-form">
+                             <div class="form-item">
+                                    <label for="event-name">Name</label>
+                                    <input id="other-name" name="event-name" class="form-text" value="">
+                             </div>
+                                
+                                <div class="form-item">
+                                    <label for="other-start-date">START DATE</label>
+                                    <input type="text" name="other-start-date" id="other-start-date" class="form-text form-date hasDatepicker" value="02.01.2013">
+                                    <select id="other-start-time" name="other-start-time" class="form-select form-time">
+                                         <option>6:00</option>
+                                        <option>7:00</option>
+                                      <option>8:00</option>
+                                        <option>9:00</option>
+                                   </select>
+                                </div>
+                                
+                               <div class="form-item">
+                                    <label for="other-end-date">END DATE</label>
+                                    <input type="text" name="other-end-date" id="other-end-date" class="form-text form-date hasDatepicker" value="02.01.2013">
+                                    <select id="other-end-time" name="other-end-time" class="form-select form-time">
+                                  
+                                   </select>
+                                </div>
+                                
+                             
+                        
+                                
+                               <div class="form-item">
+                                    <label for="other-notes">Notes</label>
+                                    <textarea id="other-notes" name="other-notes" class="form-textarea" cols="30" rows="4"></textarea>
+                                </div>                                 
+                                
+                                 
+							 </form>
+                            
+                            <div class="buttons"><input type="submit" class="btn btn-primary cancelappointment-button" value="Cancel Appointment" style="display: none;"> <input type="submit" class="btn btn-primary ok-button" value="Ok "> <input type="button" class="btn btn-primary cancel-button" value="Cancel"></div>                         
+                      
+                    </div>
+
+
+<div class="popup-form popup-win popup-event lesson" style="display: none;">
+
+    
+<input type="hidden" id="noTutorAvailable" value="No tutor is available for the selected Lesson.">
+<input type="hidden" id="noAvailability" value="No availability">
+
+
+    <h6 id="popup-event-title">Book a Lesson</h6>
+    <p class="errorMessage" id="appointmentError" style="display: none;"></p>
+
+<p class="notice24hours" id="lessonnotice" style="margin-left:70px;">Note : 1. You can only book lessons with a 24 hours notice, <br> &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;  2. The calendar operates in Eastern Time Zone.</p>
+  <p class="notice24hours" id="evalnotice" style="margin-left:45px;display:none">Note: 1. We require a minimum of 24 hour notice to book your evaluation, <br> &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2. The calendar operates in Eastern Time Zone.</p>
+
+    <form action="#/calendar/week/94c69e4f-0b51-45ac-8fef-e877ead2976a?" method="post" class="event-form" id="event-form">
+        <div class="form-item">
+            <label for="event-name">Name</label>
+            <input id="event-name" name="event-name" class="form-text" value="">
+        </div>
+
+        <div class="form-item">
+            <label for="phoneNumber">Phone Number</label>
+            <input id="phoneNumber" name="phoneNumber" class="form-text" value="" style="width: 93px;" maxlength="20">
+           
+                Ext.
+                <input id="phoneExtension" name="phoneExtension" class="form-text" value="" style="width: 33px;" maxlength="20">
+
+        </div>
+
+        
+
+            <div class="form-item" id="category-section" style="display: none;">
+                <label for="category">Category</label>
+                <select id="category" name="category" class="form-select"><option value="5d33bf1f-e6d4-4b64-8915-76b004f1b6b9">Lessons</option></select>
+            </div>
+
+            <div class="form-item">
+                <label for="event-start-date" id="evaldatetext" style="display:none;">Evaluation Date</label>
+                <label for="event-start-date" id="lessondatetext">Start Date</label>
+                <input type="text" name="event-start-date" id="event-start-date" class="form-text form-date hasDatepicker" value="02.01.2013">
+                <select id="event-start-time" name="event-start-time" class="form-select form-time"><option value="t0_00">0:00</option><option value="t0_30">0:30</option><option value="t1_00">1:00</option><option value="t1_30">1:30</option><option value="t2_00">2:00</option><option value="t2_30">2:30</option><option value="t3_00">3:00</option><option value="t3_30">3:30</option><option value="t4_00">4:00</option><option value="t4_30">4:30</option><option value="t5_00">5:00</option><option value="t5_30">5:30</option><option value="t6_00">6:00</option><option value="t6_30">6:30</option><option value="t7_00">7:00</option><option value="t7_30">7:30</option><option value="t8_00">8:00</option><option value="t8_30">8:30</option><option value="t9_00">9:00</option><option value="t9_30">9:30</option><option value="t10_00">10:00</option><option value="t10_30">10:30</option><option value="t11_00">11:00</option><option value="t11_30">11:30</option><option value="t12_00">12:00</option><option value="t12_30">12:30</option><option value="t13_00">13:00</option><option value="t13_30">13:30</option><option value="t14_00">14:00</option><option value="t14_30">14:30</option><option value="t15_00">15:00</option><option value="t15_30">15:30</option><option value="t16_00">16:00</option><option value="t16_30">16:30</option><option value="t17_00">17:00</option><option value="t17_30">17:30</option><option value="t18_00">18:00</option><option value="t18_30">18:30</option><option value="t19_00">19:00</option><option value="t19_30">19:30</option><option value="t20_00">20:00</option><option value="t20_30">20:30</option><option value="t21_00">21:00</option><option value="t21_30">21:30</option><option value="t22_00">22:00</option><option value="t22_30">22:30</option><option value="t23_00">23:00</option><option value="t23_30">23:30</option></select>
+            </div>
+
+            <div class="form-item">
+                <label for="Lesson">Lesson</label>
+                <select id="Lesson" name="Lesson" class="form-select"><option value="ce4460a4-f19b-416b-8ba5-8271db5e3c12">FSL Module 1</option></select>
+            </div>
+
+            
+
+            <div class="form-item" id="tutor-formitem" style="display: none;">
+                <label for="tutor">Tutor</label>
+                <select id="tutor" name="tutor" class="form-select"><option value="94c69e4f-0b51-45ac-8fef-e877ead2976a">Joanne Allard</option></select>
+            </div>
+
+            <div class="form-item" id="classroom-formitem" style="display: none;">
+                <label for="classroom">Group</label>
+                <select id="classroom" name="classroom" class="form-select">
+                </select>
+            </div>
+
+            <div class="form-item" id="learner-formitem">
+                <label for="learner">Learner</label>
+                <select id="learner" name="learner" class="form-select">
+                        <option value="f53d4b2a-b637-40b5-a5d5-4a5d1041c5b9">Bing So</option>
+                        <option value="c0d03d53-7475-42c1-8b69-691cdf6c8722">James McNeil</option>
+                        <option value="0a81bdff-9553-40b2-a649-4ae72d6fa7cb">Lori Buckle</option>
+                </select>
+            </div>
+
+            <div class="form-item">
+                <label for="event-notes">Notes</label>
+                <textarea id="event-notes" name="event-notes" class="form-textarea" cols="30" rows="4"></textarea>
+            </div>
+
+
+</form>
+
+    <div class="buttons">
+        <input type="button" class="btn btn-primary cancelappointment-button" id="cancelAppointmentButton" value="Cancel lesson" style="display: none;">
+        <input type="button" id="bookLessonOK" class="btn btn-primary ok-button" value="Ok ">
+        <input type="button" class="btn btn-primary cancel-button" value="Cancel">
+    </div>
+
+</div>
+
+   
+      
+<div class="popup-form popup-win popup-avalability" style="margin-top: -319px; display: block;">
+    <form action="#/calendar/week/94c69e4f-0b51-45ac-8fef-e877ead2976a?" method="post" class="availability-form">
+        <h6>Add Availability</h6>
+
+        <div class="scroll-container" style="height: 298px;">
+            <div class="form-radios form-item1">
+                <div class="desc">Apply to:</div>
+                <div class="radios">
+                    <label>
+                        <input id="radToday" name="apply-period" type="radio" value="today" checked="">
+                       Today </label>
+                    <label>
+                        <input id="radWeek" type="radio" name="apply-period" value="week">
+                      This week</label>
+                    <label>
+                </div>
+
+                <table class="weekdays" id="week-period-tab">
+                    <tbody><tr>
+                        <td>Sun</td>
+                        <td>Mon</td>
+                        <td>Tue</td>
+                        <td>Wed</td>
+                        <td>Thu</td>
+                        <td>Fri</td>
+                        <td>Sat</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="checkbox" name="sun"></td>
+                        <td>
+                            <input type="checkbox" name="mon"></td>
+                        <td>
+                            <input type="checkbox" name="tue"></td>
+                        <td>
+                            <input type="checkbox" name="wed"></td>
+                        <td>
+                            <input type="checkbox" name="thu"></td>
+                        <td>
+                            <input type="checkbox" name="fri"></td>
+                        <td>
+                            <input type="checkbox" name="sat"></td>
+                    </tr>
+                </tbody></table>
+
+            </div>
+            <div class="form-item form-item1">
+                <label for="from-date">Start Date</label>
+                <input type="text" name="from-date" id="from-date" class="form-text form-date hasDatepicker">
+                <label id="to-date-label" for="to-date" style="display: none;">End date</label>
+                <input type="text" name="to-date" id="to-date" class="form-text form-date hasDatepicker" style="display: none;">
+            </div>
+            <br class="clear">
+            <div class="form-item">
+                <label for="from-time">Schedule entry from:</label>
+                <select id="from-time" name="from-time" class="form-select form-time">
+                    <option>00:00</option>
+                    <option>01:00</option>
+                    <option>02:00</option>
+                    <option>03:00</option>
+                    <option>04:00</option>
+                    <option>05:00</option>
+                    <option>06:00</option>
+                    <option>07:00</option>
+                    <option>08:00</option>
+                    <option>09:00</option>
+                    <option>10:00</option>
+                    <option>11:00</option>
+                    <option>12:00</option>
+                    <option>13:00</option>
+                    <option>14:00</option>
+                    <option>15:00</option>
+                    <option>16:00</option>
+                    <option>17:00</option>
+                    <option>18:00</option>
+                    <option>19:00</option>
+                    <option>20:00</option>
+                    <option>21:00</option>
+                    <option>22:00</option>
+                    <option>23:00</option>
+                    <option>24:00</option>
+                </select>
+            </div>
+            <div class="form-item form-item2">
+                <label for="to-time">To</label>
+                <select id="to-time" name="to-time" class="form-select form-time">
+                    <option>00:00</option>
+                    <option>01:00</option>
+                    <option>02:00</option>
+                    <option>03:00</option>
+                    <option>04:00</option>
+                    <option>05:00</option>
+                    <option>06:00</option>
+                    <option>07:00</option>
+                    <option>08:00</option>
+                    <option>09:00</option>
+                    <option>10:00</option>
+                    <option>11:00</option>
+                    <option>12:00</option>
+                    <option>13:00</option>
+                    <option>14:00</option>
+                    <option>15:00</option>
+                    <option>16:00</option>
+                    <option>17:00</option>
+                    <option>18:00</option>
+                    <option>19:00</option>
+                    <option>20:00</option>
+                    <option>21:00</option>
+                    <option>22:00</option>
+                    <option>23:00</option>
+                    <option>24:00</option>
+                </select>
+            </div>
+            <br class="clear">
+
+            <p>Please select any time slots that you wish to have available for appointments.</p>
+            <table class="tab1 tab-availability">
+                <tbody><tr>
+                    <th width="40">
+                        <label>
+                            <input type="checkbox" class="all-checks">
+                          All</label>
+                    </th>
+                    <th>Hours
+                    </th>
+                    <th>Learner
+                    </th>
+                    <th>Module(s)
+                    </th>
+                    <th>Type
+                    </th>
+                    <th>Action 
+                    </th>
+                </tr>
+                <tr class="timetrs">
+                    <td style="display: none;">
+                        <input type="checkbox" class="timeboxes" name="time_00-00"></td>
+                    <td style="display: none;">00:00</td>
+                    <td style="display: none;"></td>
+                    <td style="display: none;"></td>
+                    <td style="display: none;"></td>
+                    <td style="display: none;"></td>
+                </tr>
+                <tr class="timetrs">
+                    <td style="display: none;">
+                        <input type="checkbox" class="timeboxes" name="time_00-30"></td>
+                    <td style="display: none;">00:30</td>
+                    <td style="display: none;"></td>
+                    <td style="display: none;"></td>
+                    <td style="display: none;"></td>
+                    <td style="display: none;"></td>
+                </tr>
+                <tr class="timetrs">
+                    <td style="display: none;">
+                        <input type="checkbox" class="timeboxes" name="time_01-00"></td>
+                    <td style="display: none;">01:00</td>
+                    <td style="display: none;"></td>
+                    <td style="display: none;"></td>
+                    <td style="display: none;"></td>
+                    <td style="display: none;"></td>
+                </tr>
+                <tr class="timetrs">
+                    <td style="display: none;">
+                        <input type="checkbox" class="timeboxes" name="time_01-30"></td>
+                    <td style="display: none;">01:30</td>
+                    <td style="display: none;"></td>
+                    <td style="display: none;"></td>
+                    <td style="display: none;"></td>
+                    <td style="display: none;"></td>
+                </tr>
+                <tr class="timetrs">
+                    <td style="display: none;">
+                        <input type="checkbox" class="timeboxes" name="time_02-00"></td>
+                    <td style="display: none;">02:00</td>
+                    <td style="display: none;"></td>
+                    <td style="display: none;"></td>
+                    <td style="display: none;"></td>
+                    <td style="display: none;"></td>
+                </tr>
+                <tr class="timetrs">
+                    <td style="display: none;">
+                        <input type="checkbox" class="timeboxes" name="time_02-30"></td>
+                    <td style="display: none;">02:30</td>
+                    <td style="display: none;"></td>
+                    <td style="display: none;"></td>
+                    <td style="display: none;"></td>
+                    <td style="display: none;"></td>
+                </tr>
+                <tr class="timetrs">
+                    <td style="display: none;">
+                        <input type="checkbox" class="timeboxes" name="time_03-00"></td>
+                    <td style="display: none;">03:00</td>
+                    <td style="display: none;"></td>
+                    <td style="display: none;"></td>
+                    <td style="display: none;"></td>
+                    <td style="display: none;"></td>
+                </tr>
+                <tr class="timetrs">
+                    <td style="display: none;">
+                        <input type="checkbox" class="timeboxes" name="time_03-30"></td>
+                    <td style="display: none;">03:30</td>
+                    <td style="display: none;"></td>
+                    <td style="display: none;"></td>
+                    <td style="display: none;"></td>
+                    <td style="display: none;"></td>
+                </tr>
+                <tr class="timetrs">
+                    <td style="display: none;">
+                        <input type="checkbox" class="timeboxes" name="time_04-00"></td>
+                    <td style="display: none;">04:00</td>
+                    <td style="display: none;"></td>
+                    <td style="display: none;"></td>
+                    <td style="display: none;"></td>
+                    <td style="display: none;"></td>
+                </tr>
+                <tr class="timetrs">
+                    <td style="display: none;">
+                        <input type="checkbox" class="timeboxes" name="time_04-30"></td>
+                    <td style="display: none;">04:30</td>
+                    <td style="display: none;"></td>
+                    <td style="display: none;"></td>
+                    <td style="display: none;"></td>
+                    <td style="display: none;"></td>
+                </tr>
+                <tr class="timetrs">
+                    <td style="display: none;">
+                        <input type="checkbox" class="timeboxes" name="time_05-00"></td>
+                    <td style="display: none;">05:00</td>
+                    <td style="display: none;"></td>
+                    <td style="display: none;"></td>
+                    <td style="display: none;"></td>
+                    <td style="display: none;"></td>
+                </tr>
+                <tr class="timetrs">
+                    <td style="display: none;">
+                        <input type="checkbox" class="timeboxes" name="time_05-30"></td>
+                    <td style="display: none;">05:30</td>
+                    <td style="display: none;"></td>
+                    <td style="display: none;"></td>
+                    <td style="display: none;"></td>
+                    <td style="display: none;"></td>
+                </tr>
+
+                <tr class="timetrs">
+                    <td style="display: none;">
+                        <input type="checkbox" class="timeboxes" name="time_06-00"></td>
+                    <td style="display: none;">06:00</td>
+                    <td style="display: none;"></td>
+                    <td style="display: none;"></td>
+                    <td style="display: none;"></td>
+                    <td style="display: none;"></td>
+                </tr>
+                <tr class="timetrs">
+                    <td style="display: none;">
+                        <input type="checkbox" class="timeboxes" name="time_06-30"></td>
+                    <td style="display: none;">06:30</td>
+                    <td style="display: none;"></td>
+                    <td style="display: none;"></td>
+                    <td style="display: none;"></td>
+                    <td style="display: none;"></td>
+                </tr>
+                <tr class="timetrs">
+                    <td>
+                        <input type="checkbox" class="timeboxes" name="time_07-00"></td>
+                    <td>07:00</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr class="timetrs">
+                    <td>
+                        <input type="checkbox" class="timeboxes" name="time_07-30"></td>
+                    <td>07:30</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr class="timetrs">
+                    <td>
+                        <input type="checkbox" class="timeboxes" name="time_08-00"></td>
+                    <td>08:00</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr class="timetrs">
+                    <td>
+                        <input type="checkbox" class="timeboxes" name="time_08-30"></td>
+                    <td>08:30</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr class="timetrs">
+                    <td>
+                        <input type="checkbox" class="timeboxes" name="time_09-00"></td>
+                    <td>09:00</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr class="timetrs">
+                    <td>
+                        <input type="checkbox" class="timeboxes" name="time_09-30"></td>
+                    <td>09:30</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr class="timetrs">
+                    <td>
+                        <input type="checkbox" class="timeboxes" name="time_10-00"></td>
+                    <td>10:00</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr class="timetrs">
+                    <td>
+                        <input type="checkbox" class="timeboxes" name="time_10-30"></td>
+                    <td>10:30</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr class="timetrs">
+                    <td>
+                        <input type="checkbox" class="timeboxes" name="time_11-00"></td>
+                    <td>11:00</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr class="timetrs">
+                    <td>
+                        <input type="checkbox" class="timeboxes" name="time_11-30"></td>
+                    <td>11:30</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr class="timetrs">
+                    <td>
+                        <input type="checkbox" class="timeboxes" name="time_12-00"></td>
+                    <td>12:00</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr class="timetrs">
+                    <td>
+                        <input type="checkbox" class="timeboxes" name="time_12-30"></td>
+                    <td>12:30</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr class="timetrs">
+                    <td>
+                        <input type="checkbox" class="timeboxes" name="time_13-00"></td>
+                    <td>13:00</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr class="timetrs">
+                    <td>
+                        <input type="checkbox" class="timeboxes" name="time_13-30"></td>
+                    <td>13:30</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr class="timetrs">
+                    <td>
+                        <input type="checkbox" class="timeboxes" name="time_14-00"></td>
+                    <td>14:00</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr class="timetrs">
+                    <td>
+                        <input type="checkbox" class="timeboxes" name="time_14-30"></td>
+                    <td>14:30</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr class="timetrs">
+                    <td>
+                        <input type="checkbox" class="timeboxes" name="time_15-00"></td>
+                    <td>15:00</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr class="timetrs">
+                    <td>
+                        <input type="checkbox" class="timeboxes" name="time_15-30"></td>
+                    <td>15:30</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr class="timetrs">
+                    <td>
+                        <input type="checkbox" class="timeboxes" name="time_16-00"></td>
+                    <td>16:00</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr class="timetrs">
+                    <td>
+                        <input type="checkbox" class="timeboxes" name="time_16-30"></td>
+                    <td>16:30</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr class="timetrs">
+                    <td>
+                        <input type="checkbox" class="timeboxes" name="time_17-00"></td>
+                    <td>17:00</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr class="timetrs">
+                    <td>
+                        <input type="checkbox" class="timeboxes" name="time_17-30"></td>
+                    <td>17:30</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr class="timetrs">
+                    <td>
+                        <input type="checkbox" class="timeboxes" name="time_18-00"></td>
+                    <td>18:00</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr class="timetrs">
+                    <td>
+                        <input type="checkbox" class="timeboxes" name="time_18-30"></td>
+                    <td>18:30</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr class="timetrs">
+                    <td>
+                        <input type="checkbox" class="timeboxes" name="time_19-00"></td>
+                    <td>19:00</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr class="timetrs">
+                    <td>
+                        <input type="checkbox" class="timeboxes" name="time_19-30"></td>
+                    <td>19:30</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr class="timetrs">
+                    <td>
+                        <input type="checkbox" class="timeboxes" name="time_20-00"></td>
+                    <td>20:00</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr class="timetrs">
+                    <td>
+                        <input type="checkbox" class="timeboxes" name="time_20-30"></td>
+                    <td>20:30</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr class="timetrs">
+                    <td>
+                        <input type="checkbox" class="timeboxes" name="time_21-00"></td>
+                    <td>21:00</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr class="timetrs">
+                    <td>
+                        <input type="checkbox" class="timeboxes" name="time_21-30"></td>
+                    <td>21:30</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr class="timetrs">
+                    <td>
+                        <input type="checkbox" class="timeboxes" name="time_22-00"></td>
+                    <td>22:00</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr class="timetrs">
+                    <td>
+                        <input type="checkbox" class="timeboxes" name="time_22-30"></td>
+                    <td>22:30</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr class="timetrs">
+                    <td style="display: none;">
+                        <input type="checkbox" class="timeboxes" name="time_23-00"></td>
+                    <td style="display: none;">23:00</td>
+                    <td style="display: none;"></td>
+                    <td style="display: none;"></td>
+                    <td style="display: none;"></td>
+                    <td style="display: none;"></td>
+                </tr>
+                <tr class="timetrs">
+                    <td style="display: none;">
+                        <input type="checkbox" class="timeboxes" name="time_23-30"></td>
+                    <td style="display: none;">23:30</td>
+                    <td style="display: none;"></td>
+                    <td style="display: none;"></td>
+                    <td style="display: none;"></td>
+                    <td style="display: none;"></td>
+                </tr>
+
+            </tbody></table>
+
+        </div>
+
+        <div class="buttons">
+            <input type="button" id="availabilityOK" class="btn btn-primary ok-button" value="Ok">
+            <input type="button" class="btn btn-primary cancel-button" value="Cancel">
+        </div>
+    </form>
+</div>
+
+
+
+
+<script>var currentRole = 2;</script>
+
+<div class="popup-form popup-win" id="confirmCancelWindow" style="top: 100px; margin-top: 0px">
+    <form action="#/calendar/week/94c69e4f-0b51-45ac-8fef-e877ead2976a?" method="post" class="availability-form">
+        <div style="margin: 2px 10px;">
+            <h6>Cancel lesson</h6>
+            <div id="askcharge">
+                <p>Should this cancellation be chargeable?<br>Select YES only if you are acting on behalf of the student and the lesson should be charged.</p>
+            </div>
+            <div style="margin: 4px 0px;" id="chargeablediv">
+                <p class="boldred">Please take note that this cancellation is without 24 hours' notice and the lesson will be chargeable. Do you still want to cancel this lesson?</p>
+                <ul class="nolist">
+                    <li>
+                        <input type="radio" name="accept" value="Y">
+                        <span>Yes, I agree</span>
+                    </li>
+                    <!--<li>
+                        <input type="radio" name="accept" value="N" />
+                        <span>No, go back</span>
+                    </li>-->
+                </ul>
+            </div>
+            <div id="normaldiv">
+                <p id="uncharged">Please provide the reason why you need to cancel:</p>
+                <p id="charged" style="display: none">Please provide the reason why you need to cancel:</p>
+                <ul class="nolist">
+                    <li>
+                        <input type="radio" name="reason" value="1">
+                        <span>Sickness</span>
+                    </li>
+                    <li>
+                        <input type="radio" name="reason" value="2">
+                        <span>Work</span>
+                    </li>
+                    <li>
+                        <input type="radio" name="reason" value="3">
+                        <span>Conflicting Schedule</span>
+                    </li>
+                    <li>
+                        <input type="radio" name="reason" value="4" checked="checked">
+                        <span>Other</span>
+                    </li>
+                </ul>
+                <br>
+                <p>Cancellation Details: <span style="color:red">*</span></p>
+                <textarea id="details" cols="50" rows="3"></textarea>
+                <p style="color:red">*If you select "Other", the cancellation details is mandatory. </p>
+            </div>
+        </div>
+        <div id="askbuttons" class="buttons">
+            <input type="button" id="chargeYes" class="btn btn-primary" value="Yes">
+            <input type="button" class="btn btn-primary" id="chargeNo" value="No">
+        </div>
+        <div id="normalbuttons" class="buttons">
+            <input type="button" id="cancelAppointmentOK" class="btn btn-primary ok-button" value="Ok">
+            <input type="button" class="btn btn-primary cancel-button" id="cancelAppointmentCancel" value="Cancel">
+        </div>
+
+    </form>
+
+</div>
+
+                </div>
+                <div class="footer no-print">
+                    <div class="center">
+                        © 2017 Concordia University, INSE 6260, Team Hyperion
+                    </div>
+                </div>
+ </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+
+        var pageUser ={"ActiveStudents":0,"DesiredStudents":5,"Qualifications":[{"CanEvaluate":false,"Language":"FR","Level":3}],"PayRate":0.0,"Performance":"NaN","ProductRates":[{"PayRate":19.5,"Product":{"ID":"6617c569-5c9c-42fa-bbc8-97a308399c55","Name":"FSL Module 15","IsEOMExaminer":false},"Type":1}],"AuthorizedToDoSLEEval":false,"Addresses":[{"City":"Montréal","Line1":"1570 Cartier","Line2":"","PostalCode":"H2K 4C","Province":"QC","Type":1},{"City":"","Line1":"","Line2":"","PostalCode":"      ","Province":"QC","Type":2}],"FirstName":"Joanne","ID":"94c69e4f-0b51-45ac-8fef-e877ead2976a","LastName":"Allard","MiddleName":"","Phones":[],"Preferences":{"DisableNotifications":false},"Role":2,"SecondaryEmail":"bohumil8@hotmail.com","SecondaryEmail2":"Joanne.Allard@lrdgonline.com","SecondaryEmail3":"bohumil8@hotmail.com","Status":3,"Token":"13ad6b82-f83e-4b33-a2f4-d0686cf5b007","Username":"Joanne.Allard@lrdgonline.com","WebID":139655,"Deleted":false,"Groups":null,"IsRIQUser":false,"RIQUserID":null};
+        var  pageClient =null;
+
+        var baseURL = "";
+
+        var CancelReasons = ["","Sickness","Work","Conflicting Schedule","Other"];
+
+            
+        var _user ={"ActiveStudents":0,"DesiredStudents":5,"Qualifications":[{"CanEvaluate":false,"Language":"FR","Level":3}],"PayRate":0.0,"Performance":"NaN","ProductRates":[{"PayRate":19.5,"Product":{"ID":"6617c569-5c9c-42fa-bbc8-97a308399c55","Name":"FSL Module 15","IsEOMExaminer":false},"Type":1}],"AuthorizedToDoSLEEval":false,"Addresses":[{"City":"Montréal","Line1":"1570 Cartier","Line2":"","PostalCode":"H2K 4C","Province":"QC","Type":1},{"City":"","Line1":"","Line2":"","PostalCode":"      ","Province":"QC","Type":2}],"FirstName":"Joanne","ID":"94c69e4f-0b51-45ac-8fef-e877ead2976a","LastName":"Allard","MiddleName":"","Phones":[],"Preferences":{"DisableNotifications":false},"Role":2,"SecondaryEmail":"bohumil8@hotmail.com","SecondaryEmail2":"Joanne.Allard@lrdgonline.com","SecondaryEmail3":"bohumil8@hotmail.com","Status":3,"Token":"13ad6b82-f83e-4b33-a2f4-d0686cf5b007","Username":"Joanne.Allard@lrdgonline.com","WebID":139655,"Deleted":false,"Groups":null,"IsRIQUser":false,"RIQUserID":null}
+    
+    
+    </script>
+
+    
+
+    
+
+
+    
+    
+
+
+
+
+    
+
+
+       
+       
+
+
+
+<script>
+    $(".myprogram-icon").parent().focus(function() {
+        $(".myprogram-icon").parent().find(".submenu").show();
+    });
+
+    $(".grades-icon").parent().blur(function() {
+        $(".grades-icon").parent().parent().hide();
+    });
+
+    $(".user-select").find("span").focus(function() {
+        $(".user-select").parent().find(".submenu").show();
+    });
+
+    $(".logout").blur(function() {
+        $(".user-select").parent().find(".submenu").hide();
+    });
+
+    $("li").keypress(function (e) {
+        if (e.keyCode == 13) {
+            $(this).find("a")[0].click();
+        }
+    });
+
+    $("span").keypress(function (e) {
+        if (e.keyCode == 13) {
+            $(this).parent()[0].click();
+        }
+    });
+
+</script>
+
+<div id="jstree-marker" style="display: none;">»</div><div id="jstree-marker-line" style="display: none;"></div><div id="vakata-contextmenu"></div><div id="ui-datepicker-div" class="ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all"><div class="ui-datepicker-header ui-widget-header ui-helper-clearfix ui-corner-all"><a class="ui-datepicker-prev ui-corner-all" data-handler="prev" data-event="click" title="Prev"><span class="ui-icon ui-icon-circle-triangle-w">Prev</span></a><a class="ui-datepicker-next ui-corner-all" data-handler="next" data-event="click" title="Next"><span class="ui-icon ui-icon-circle-triangle-e">Next</span></a><div class="ui-datepicker-title"><select class="ui-datepicker-month" data-handler="selectMonth" data-event="change"><option value="0">Jan</option><option value="1">Feb</option><option value="2" selected="selected">Mar</option><option value="3">Apr</option><option value="4">May</option><option value="5">Jun</option><option value="6">Jul</option><option value="7">Aug</option><option value="8">Sep</option><option value="9">Oct</option><option value="10">Nov</option><option value="11">Dec</option></select><select class="ui-datepicker-year" data-handler="selectYear" data-event="change"><option value="2007">2007</option><option value="2008">2008</option><option value="2009">2009</option><option value="2010">2010</option><option value="2011">2011</option><option value="2012">2012</option><option value="2013">2013</option><option value="2014">2014</option><option value="2015">2015</option><option value="2016">2016</option><option value="2017" selected="selected">2017</option><option value="2018">2018</option><option value="2019">2019</option><option value="2020">2020</option><option value="2021">2021</option><option value="2022">2022</option><option value="2023">2023</option><option value="2024">2024</option><option value="2025">2025</option><option value="2026">2026</option><option value="2027">2027</option></select></div></div><table class="ui-datepicker-calendar"><thead><tr><th class="ui-datepicker-week-end"><span title="Sunday">Su</span></th><th><span title="Monday">Mo</span></th><th><span title="Tuesday">Tu</span></th><th><span title="Wednesday">We</span></th><th><span title="Thursday">Th</span></th><th><span title="Friday">Fr</span></th><th class="ui-datepicker-week-end"><span title="Saturday">Sa</span></th></tr></thead><tbody><tr><td class=" ui-datepicker-week-end ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td><td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td><td class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td><td class=" " data-handler="selectDay" data-event="click" data-month="2" data-year="2017"><a class="ui-state-default" href="#/calendar/week/94c69e4f-0b51-45ac-8fef-e877ead2976a#">1</a></td><td class=" " data-handler="selectDay" data-event="click" data-month="2" data-year="2017"><a class="ui-state-default" href="#/calendar/week/94c69e4f-0b51-45ac-8fef-e877ead2976a#">2</a></td><td class=" " data-handler="selectDay" data-event="click" data-month="2" data-year="2017"><a class="ui-state-default" href="#/calendar/week/94c69e4f-0b51-45ac-8fef-e877ead2976a#">3</a></td><td class=" ui-datepicker-week-end " data-handler="selectDay" data-event="click" data-month="2" data-year="2017"><a class="ui-state-default" href="#/calendar/week/94c69e4f-0b51-45ac-8fef-e877ead2976a#">4</a></td></tr><tr><td class=" ui-datepicker-week-end " data-handler="selectDay" data-event="click" data-month="2" data-year="2017"><a class="ui-state-default" href="#/calendar/week/94c69e4f-0b51-45ac-8fef-e877ead2976a#">5</a></td><td class=" " data-handler="selectDay" data-event="click" data-month="2" data-year="2017"><a class="ui-state-default" href="#/calendar/week/94c69e4f-0b51-45ac-8fef-e877ead2976a#">6</a></td><td class=" " data-handler="selectDay" data-event="click" data-month="2" data-year="2017"><a class="ui-state-default" href="#/calendar/week/94c69e4f-0b51-45ac-8fef-e877ead2976a#">7</a></td><td class=" " data-handler="selectDay" data-event="click" data-month="2" data-year="2017"><a class="ui-state-default" href="#/calendar/week/94c69e4f-0b51-45ac-8fef-e877ead2976a#">8</a></td><td class=" " data-handler="selectDay" data-event="click" data-month="2" data-year="2017"><a class="ui-state-default" href="#/calendar/week/94c69e4f-0b51-45ac-8fef-e877ead2976a#">9</a></td><td class=" " data-handler="selectDay" data-event="click" data-month="2" data-year="2017"><a class="ui-state-default" href="#/calendar/week/94c69e4f-0b51-45ac-8fef-e877ead2976a#">10</a></td><td class=" ui-datepicker-week-end " data-handler="selectDay" data-event="click" data-month="2" data-year="2017"><a class="ui-state-default" href="#/calendar/week/94c69e4f-0b51-45ac-8fef-e877ead2976a#">11</a></td></tr><tr><td class=" ui-datepicker-week-end " data-handler="selectDay" data-event="click" data-month="2" data-year="2017"><a class="ui-state-default" href="#/calendar/week/94c69e4f-0b51-45ac-8fef-e877ead2976a#">12</a></td><td class=" " data-handler="selectDay" data-event="click" data-month="2" data-year="2017"><a class="ui-state-default" href="#/calendar/week/94c69e4f-0b51-45ac-8fef-e877ead2976a#">13</a></td><td class=" " data-handler="selectDay" data-event="click" data-month="2" data-year="2017"><a class="ui-state-default" href="#/calendar/week/94c69e4f-0b51-45ac-8fef-e877ead2976a#">14</a></td><td class=" " data-handler="selectDay" data-event="click" data-month="2" data-year="2017"><a class="ui-state-default" href="#/calendar/week/94c69e4f-0b51-45ac-8fef-e877ead2976a#">15</a></td><td class=" " data-handler="selectDay" data-event="click" data-month="2" data-year="2017"><a class="ui-state-default" href="#/calendar/week/94c69e4f-0b51-45ac-8fef-e877ead2976a#">16</a></td><td class=" " data-handler="selectDay" data-event="click" data-month="2" data-year="2017"><a class="ui-state-default" href="#/calendar/week/94c69e4f-0b51-45ac-8fef-e877ead2976a#">17</a></td><td class=" ui-datepicker-week-end " data-handler="selectDay" data-event="click" data-month="2" data-year="2017"><a class="ui-state-default" href="#/calendar/week/94c69e4f-0b51-45ac-8fef-e877ead2976a#">18</a></td></tr><tr><td class=" ui-datepicker-week-end " data-handler="selectDay" data-event="click" data-month="2" data-year="2017"><a class="ui-state-default" href="#/calendar/week/94c69e4f-0b51-45ac-8fef-e877ead2976a#">19</a></td><td class=" " data-handler="selectDay" data-event="click" data-month="2" data-year="2017"><a class="ui-state-default" href="#/calendar/week/94c69e4f-0b51-45ac-8fef-e877ead2976a#">20</a></td><td class=" " data-handler="selectDay" data-event="click" data-month="2" data-year="2017"><a class="ui-state-default" href="#/calendar/week/94c69e4f-0b51-45ac-8fef-e877ead2976a#">21</a></td><td class="  ui-datepicker-today" data-handler="selectDay" data-event="click" data-month="2" data-year="2017"><a class="ui-state-default ui-state-highlight" href="#/calendar/week/94c69e4f-0b51-45ac-8fef-e877ead2976a#">22</a></td><td class="  ui-datepicker-current-day" data-handler="selectDay" data-event="click" data-month="2" data-year="2017"><a class="ui-state-default ui-state-active" href="#/calendar/week/94c69e4f-0b51-45ac-8fef-e877ead2976a#">23</a></td><td class=" " data-handler="selectDay" data-event="click" data-month="2" data-year="2017"><a class="ui-state-default" href="#/calendar/week/94c69e4f-0b51-45ac-8fef-e877ead2976a#">24</a></td><td class=" ui-datepicker-week-end " data-handler="selectDay" data-event="click" data-month="2" data-year="2017"><a class="ui-state-default" href="#/calendar/week/94c69e4f-0b51-45ac-8fef-e877ead2976a#">25</a></td></tr><tr><td class=" ui-datepicker-week-end " data-handler="selectDay" data-event="click" data-month="2" data-year="2017"><a class="ui-state-default" href="#/calendar/week/94c69e4f-0b51-45ac-8fef-e877ead2976a#">26</a></td><td class=" " data-handler="selectDay" data-event="click" data-month="2" data-year="2017"><a class="ui-state-default" href="#/calendar/week/94c69e4f-0b51-45ac-8fef-e877ead2976a#">27</a></td><td class=" " data-handler="selectDay" data-event="click" data-month="2" data-year="2017"><a class="ui-state-default" href="#/calendar/week/94c69e4f-0b51-45ac-8fef-e877ead2976a#">28</a></td><td class=" " data-handler="selectDay" data-event="click" data-month="2" data-year="2017"><a class="ui-state-default" href="#/calendar/week/94c69e4f-0b51-45ac-8fef-e877ead2976a#">29</a></td><td class=" " data-handler="selectDay" data-event="click" data-month="2" data-year="2017"><a class="ui-state-default" href="#/calendar/week/94c69e4f-0b51-45ac-8fef-e877ead2976a#">30</a></td><td class=" " data-handler="selectDay" data-event="click" data-month="2" data-year="2017"><a class="ui-state-default" href="#/calendar/week/94c69e4f-0b51-45ac-8fef-e877ead2976a#">31</a></td><td class=" ui-datepicker-week-end ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td></tr></tbody></table></div><div class="body-overlay" style="height: 1643px; display: none; z-index: 95;"></div></body></html>

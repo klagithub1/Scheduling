@@ -1,0 +1,330 @@
+﻿/*.center {
+    width: 1000px;
+    margin: 0px auto;
+    background: #F0F0FF;
+}
+
+.header, .footer {
+    padding: 10px;
+    background: #88BBFF;
+}
+
+.header {
+    position:relative;
+    margin: 0px 0px 20px 0px;
+}
+
+.footer {
+    margin: 20px 0px 0px 0px;
+}
+
+.rightAligned {
+    position: absolute;
+    right: 10px;
+    bottom :20px;
+    background: #FF9933;
+    padding:5px;
+}
+
+.profileItem {
+margin:8px 0px;
+
+}
+
+    .profileItem span {
+        margin:0px 8px;
+    }
+
+        .profileItem span:nth-child(2) {
+            font-weight:700;
+        }*/
+
+.dashboard-calendar-widget {
+    cursor: pointer;
+}
+
+.hidden {
+    display: none;
+}
+
+ul.nolist {
+    list-style-type: none;
+}
+
+p.boldred {
+    font-weight: bold;
+    color: red;
+}
+
+p.errorMessage {
+    font-weight: bold;
+    color: red;
+    margin-left: 20px;
+    display: none;
+}
+
+.comingsoon {
+    position: relative;
+}
+
+.comingsoonpanel {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    opacity: 0.70;
+    filter: alpha(opacity=70);
+    text-align: center;
+    vertical-align: middle;
+    font-size: 1.2em;
+    color: black;
+}
+
+.comingsoonpanel span {
+    position: absolute;
+    top: 45%;
+    left: 0px;
+    width: 100%;
+}
+
+.messageImage {
+    position: absolute;
+    left: 38px;
+    top: 7px;
+    width: 33px;
+    height: 33px;
+    display: inline-block;
+    margin: 2px;
+    padding: 0px;
+}
+
+p.notification {
+    font-weight: bold;
+    color: black;
+    margin-left: 20px;
+    text-align: center;
+}
+
+ul.spanlist {}
+
+ul.spanlist li {
+    margin: 4px;
+}
+
+ul.spanlist li span {
+    display: inline-block;
+    width: 200px;
+    margin: 0px 4px;
+}
+
+ul.spanlist li span.caption {
+    margin: 4px 40px;
+}
+
+ul.spanlist li span:first-child {
+    text-align: right;
+}
+
+ul.spanlist li div {
+    width: 400px;
+    margin: 4px auto;
+    padding: 4px;
+    min-height: 40px;
+    border: 1px solid black;
+}
+
+.today {
+    margin-left: 6px;
+    margin-right: 6px;
+}
+
+textarea {
+    resize: none;
+}
+
+.invalid {
+    border: 3px solid red;
+}
+
+div.container {
+    display: inline-block;
+}
+
+.nicedit-main {}
+
+.nicedit-main ul {
+    padding: 0px 2px;
+}
+
+.nicedit-main ul li {
+    padding: 0px 2px;
+}
+
+.cancelled-classroom {
+    text-decoration: line-through;
+    font-weight: bold;
+    color: red;
+}
+
+
+/* For progress bar*/
+
+.widget .my-lang-training .button2:hover {
+    background: #447fb9;
+    color: #fff;
+}
+
+.progress-bar .percent {
+    font-weight: bold;
+    font-size: 12px;
+}
+
+.progress-bar .line {
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    behavior: url(/css/PIE.htc);
+    border: 1px solid #666666;
+    overflow: hidden;
+    font-size: 1px;
+}
+
+.progress-bar .line .progress {
+    width: 50%;
+    background: #4c9900;
+    font-size: 1px;
+    height: 10px;
+    float: left;
+}
+
+.popup-progress .progress-bar {
+    width: 250px;
+    position: absolute;
+    top: 2px;
+    right: 0;
+}
+
+.popup-progress .progress-bar .percent {
+    float: right;
+    padding-left: 5px;
+}
+
+.popup-progress .progress-bar .label {
+    float: left;
+    padding-right: 5px;
+}
+
+.popup-progress .progress-bar .line {
+    margin-top: 2px;
+}
+
+.widget .my-lang-training .progress-bar {
+    position: relative;
+    margin-bottom: 7px;
+}
+
+.widget .my-lang-training .progress-bar .percent {
+    position: absolute;
+    right: 5px;
+    top: -2px;
+    text-align: right;
+    width: 67px;
+    color: #4e4d52;
+    font-size: 15px;
+}
+
+.widget .my-lang-training .progress-bar .bar {
+    background: #c2d3dd;
+    border-top: 1px solid #a8bac8;
+    border-left: 1px solid #a8bac8;
+    border-right: 1px solid #ccdae3;
+    border-bottom: 1px solid #ccdae3;
+    height: 11px;
+    margin-right: 67px;
+    -moz-border-radius: 12px;
+    -webkit-border-radius: 12px;
+    border-radius: 12px;
+    behavior: url(/css/PIE.htc);
+    font-size: 0;
+    margin-top: 10px;
+}
+
+.widget .my-lang-training .progress-bar .bar .progress {
+    background: #8ad84e;
+    border: 1px solid #74b149;
+    margin: -1px;
+    height: 10px;
+    -moz-border-radius: 12px;
+    -webkit-border-radius: 12px;
+    border-radius: 12px;
+    behavior: url(/css/PIE.htc);
+    font-size: 0;
+}
+
+.widget .my-lang-training .progress-bar .bar .progress .inner {
+    height: 100%;
+    border-top: 1px solid #b6e984;
+    border-bottom: 1px solid #71c146;
+    -moz-border-radius: 11px;
+    -webkit-border-radius: 11px;
+    border-radius: 11px;
+    behavior: url(/css/PIE.htc);
+}
+
+.widget .my-lang-training .module {
+    margin-bottom: 10px;
+}
+
+.widget .my-lang-training .blue-button {
+    float: none;
+    display: inline-block;
+    padding: 8px 25px;
+    font-size: 17px;
+    background-color: blue;
+}
+
+.widget .my-lang-training .buttons {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.widget .my-lang-training .materials {
+    border-top: 2px solid #d9e0e8;
+    margin: 0 -24px;
+    padding: 10px 20px 7px;
+}
+
+.widget .my-lang-training table {
+    width: 100%;
+}
+
+.widget .my-lang-training table td {
+    text-align: right;
+}
+
+.widget .my-lang-training table th {
+    color: #3a6790;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.widget .my-lang-training .button2 {
+    border: 1px solid #6e9dcb;
+    color: #34698b;
+    font-size: 15px;
+    text-decoration: none;
+    background: #fbfbfd;
+    display: inline-block;
+    padding: 6px 20px;
+    -moz-border-radius: 12px;
+    -webkit-border-radius: 12px;
+    border-radius: 12px;
+    behavior: url(/css/PIE.htc);
+}
+
+.widget .my-lang-training .button2:hover {
+    background: #447fb9;
+    color: #fff;
+}
