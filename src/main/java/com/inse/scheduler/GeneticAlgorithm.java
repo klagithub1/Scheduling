@@ -6,7 +6,7 @@ import com.inse.model.*;
 public class GeneticAlgorithm {
 
 	// Enable multipass (Slower), if enabled does the genetic algorithm many times, as indicated and keeps the best solution,
-	private final static int MULTIPASS_FACTOR=100;
+	private final static int MULTIPASS_FACTOR=150;
 
 	// Start bundle per nurse, decide which bundle we consider part of the domain per each nurse
 	private final static int NURSE_START_BUNDLE = 0;
@@ -18,7 +18,7 @@ public class GeneticAlgorithm {
 	private final static int POPULATION_SIZE = 50 ;
 
 	// Max number of iterations
-	private final static int MAXIMUM_NUMBER_ITERATIONS = 1000;
+	private final static int MAXIMUM_NUMBER_ITERATIONS = 100;
 
 	// Mutation probability rate
 	private final static double MUTATION_RATE = 0.2;
