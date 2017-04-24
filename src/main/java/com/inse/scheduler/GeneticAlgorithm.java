@@ -6,7 +6,7 @@ import com.inse.model.*;
 public class GeneticAlgorithm {
 
 	// Enable multipass (Slower), if enabled does the genetic algorithm many times, as indicated and keeps the best solution,
-	private final static int MULTIPASS_FACTOR=200;
+	private final static int MULTIPASS_FACTOR=100;
 
 	// Start bundle per nurse, decide which bundle we consider part of the domain per each nurse
 	private final static int NURSE_START_BUNDLE = 0;
@@ -175,38 +175,201 @@ public class GeneticAlgorithm {
 		System.out.println(coveredVisits);
 		System.out.println(duplicateVisits);
 
+
+		// Step 4 - eliminate duplicates
+
 		// Decide which nurse to eliminate, with the least impact
 
-		// Dramatization !!
+		Map<Integer, Bundle> newSolutionBundle = lastResortDramaticEliminationOfDuplicates(solutionBundle, duplicateVisits);
 
-		return new Schedule(solutionBundle);
+		solutionBundle = newSolutionBundle;
+
+		// Check Covered, Uncovered again, clear the previous first
+		unCoveredVisits.clear();
+		Iterator<Integer> visitsIterator = visitsPriceList.keySet().iterator();
+
+		while(visitsIterator.hasNext()){
+			unCoveredVisits.add(visitsIterator.next().toString());
+		}
+
+		// Add the visits that are covered
+		coveredVisits.clear();
+
+		// Iterate through the bundles of the solution and add the visits
+		Iterator<Integer> soluIterator = solutionBundle.keySet().iterator();
+
+		while(soluIterator.hasNext()){
+			String[] visits  = solutionBundle.get(soluIterator.next()).getVisitSequence().trim().split(",");
+			for(int j=0; j < visits.length; j++ ){
+
+				// Add to covered visits
+				coveredVisits.add(visits[j].trim());
+			}
+		}
+
+		// Calculate Uncovered Visits
+
+		unCoveredVisits.removeAll(coveredVisits);
+
+		System.out.println(unCoveredVisits);
+		System.out.println(coveredVisits);
+
+		// Calculate price of uncovered visits
+
+		String uncoveredVisitsSequence = "";
+		double uncoveredVisitsPrice = 0.00;
+
+		// Print Uncovered, to pass to schedule
+		Iterator<String> uncoveredVisitsIterator = unCoveredVisits.iterator();
+
+		while(uncoveredVisitsIterator.hasNext()){
+			String anUncoveredVisit = uncoveredVisitsIterator.next();
+			uncoveredVisitsSequence += anUncoveredVisit+ " ,";
+			uncoveredVisitsPrice += visitsPriceList.get(Integer.valueOf(anUncoveredVisit.trim()));
+		}
+
+		uncoveredVisitsSequence = uncoveredVisitsSequence.substring(0, uncoveredVisitsSequence.length() - 1);
+
+		return new Schedule(solutionBundle, uncoveredVisitsSequence, uncoveredVisitsPrice);
 	}
 
-//	private Map<Integer, Bundle> lastResortDramaticEleminationOfDuplicates(Map<Integer, Bundle> solutionBundle, Set<String> duplicateVisits ){
-//		Map<Integer, ArrayList<Bundle>> dramaticSolution = new HashMap<Integer, ArrayList<Bundle>> ();
-//
-//		Map<Double, Map<Integer, Bundle>>
-//
-//		for(int i=0; i < solutionBundle.size(); i++){
-//			String[] visits = solutionBundle.get(Integer.valueOf(i)).getVisitSequence().trim().split(",");
-//
-//		}
-//
-//
-//
-//		return dramaticSolution;
-//	}
-//
-//
-//	private double caluclateVisitAveragePrice(){
-//
-//		double cost = 0;
-//		for(int i=0; i < visitsPriceList.size(); i++){
-//			cost += visitsPriceList.get(Integer.valueOf(i)).doubleValue();
-//		}
-//
-//		return (cost / (double) visitsPriceList.size());
-//	}
+	private Map<Integer, Bundle> lastResortDramaticEliminationOfDuplicates(Map<Integer, Bundle> solutionBundle, Set<String> duplicateVisits ){
+
+		System.out.println(solutionBundle);
+
+		Map<Integer, List<Integer>> duplicateListBundles = new HashMap<Integer, List<Integer>>();
+
+		Set<Integer> disqualifiedNurses = new HashSet<Integer>();
+
+		//Result Solution after dramatic elemination, should be a subset of solutionBundle
+		Map<Integer, Bundle> treatedSolutionBundle = new HashMap<Integer, Bundle>();
+
+		// Iterate through the duplicates list
+		Iterator<String> it = duplicateVisits.iterator();
+
+		while (it.hasNext()){
+
+			// Get the visit number
+			Integer visit = Integer.valueOf(it.next().trim());
+
+			//System.out.println("visit: "+visit);
+
+			// Init a list for each duplicate
+			duplicateListBundles.put(visit,(new ArrayList<Integer>()));
+
+			// Iterate through all the bundles
+			Iterator<Integer> nurseIdIterator = solutionBundle.keySet().iterator();
+
+			while(nurseIdIterator.hasNext()){
+				Integer nurseIndex = nurseIdIterator.next();
+				//System.out.println("nurse: "+nurseIndex);
+				String[] visits = solutionBundle.get(nurseIndex).getVisitSequence().trim().split(",");
+				//System.out.println("nurse bundle: "+solutionBundle.get(nurseIndex).getVisitSequence());
+
+				for (int k=0; k<visits.length;k++){
+
+					// If visit is a duplicate, add the whole bundle to the dictionary
+					if(visits[k].trim().equals(visit.toString())){
+						//System.out.println(visits[k].trim()+ " added to "+ visit);
+						duplicateListBundles.get(visit).add(nurseIndex);
+					}
+				}
+			}
+		}
+
+		System.out.println(duplicateListBundles);
+
+		// Remove by repetition, bundles that have more than 1 duplicates, must go, most of the time this will solve the problem
+		// Iterate through all the bundles, the ones that are more than in one dictionary, eliminate them
+		Iterator<Integer> nurseIdIterator = solutionBundle.keySet().iterator();
+
+		while(nurseIdIterator.hasNext()) {
+			Integer nurseIndex = nurseIdIterator.next();
+
+			// Counter, to see if nurse present in more than one duplicate cluster
+			int counter = 0;
+
+			//Iterate through all the duplicate visits clusters
+			Iterator<String> duplicateVisitsIterator = duplicateVisits.iterator();
+
+			while (duplicateVisitsIterator.hasNext()) {
+
+				// Get the visit number
+				Integer visit = Integer.valueOf(duplicateVisitsIterator.next().trim());
+
+				if(duplicateListBundles.get(visit).contains(nurseIndex)){
+					counter++;
+				}
+			}
+
+			// If the nurse is found in more than one conflict cluster, means that she has more than one conflicting visit
+			if(counter > 1){
+				disqualifiedNurses.add(nurseIndex);
+			}
+		}
+
+		// Other pass, go through the clusters, find clusters that have more than one nurse, that is not already disqualified.
+		Iterator<String> duplicateVisitsIterator = duplicateVisits.iterator();
+
+		while (duplicateVisitsIterator.hasNext()) {
+
+			// Get the visit number
+			Integer visit = Integer.valueOf(duplicateVisitsIterator.next().trim());
+
+			// Keep  a sorted map: price, nurse, as the cheapest will make it to final list
+			TreeMap<Double, Integer> rankedNursesByPrice = new TreeMap<Double, Integer>();
+
+			// Go through all the nurses in the visit cluster
+			Iterator<Integer> nurseIterator = duplicateListBundles.get(visit).iterator();
+
+			while(nurseIterator.hasNext()){
+				Integer nurseId = nurseIterator.next();
+				if(disqualifiedNurses.contains(nurseId)){
+					continue;
+				} else {
+					System.out.println("Adding Nurse "+nurseId);
+					rankedNursesByPrice.put(solutionBundle.get(nurseId).getCostOfVisitBundle(), nurseId);
+				}
+			}
+
+			// Go through the ranked prices and remove all but first elements
+			Iterator<Double> rankedPricesIterator = rankedNursesByPrice.keySet().iterator();
+
+			// Skip the first element as it is the cheapest
+			int counter = 0;
+
+			while(rankedPricesIterator.hasNext()){
+				// Skipping the first element, as we want to keep that if exists
+				if(counter < 1) {
+					rankedPricesIterator.next();
+					counter++;
+					continue;
+				}
+
+				// Disqualify the other nurses
+
+				Integer disId = rankedNursesByPrice.get(rankedPricesIterator.next());
+				System.out.println("Disqualifying Nurse "+disId);
+				disqualifiedNurses.add(disId);
+			}
+		}
+
+		// Finally, go through the original solution and keep only the qualified nurses
+		Iterator<Integer> nurseId = solutionBundle.keySet().iterator();
+
+		while(nurseId.hasNext()) {
+			Integer nurseIdIndex = nurseId.next();
+
+			if(disqualifiedNurses.contains(nurseIdIndex)) {
+				continue;
+			} else {
+				treatedSolutionBundle.put(nurseIdIndex,solutionBundle.get(nurseIdIndex));
+			}
+		}
+
+		System.out.println(treatedSolutionBundle);
+		return treatedSolutionBundle;
+	}
 
     private int[] geneticOptimize(){
 
@@ -316,18 +479,6 @@ public class GeneticAlgorithm {
 		}
 		return crossOver;
 	}
-
-//	private TreeMap<Double, int[]> rankPopulationByPrice(ArrayList<int[]> population){
-//
-//    	TreeMap<Double, int[]> rankedPopulation = new TreeMap<Double, int[]>();
-//
-//		// Go through the population and add them to the tree, duplicates will be removed
-//		for (int c=0; c < population.size(); c++){
-//			rankedPopulation.put(Double.valueOf(this.costf(population.get(c))), population.get(c));
-//		}
-//
-//    	return rankedPopulation;
-//	}
 
 	private ArrayList<int[]> initializeRandomPopulation(){
 
